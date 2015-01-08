@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libraries/slick2d/slick.jar"/>
+	<classpathentry kind="lib" path="libraries/lwjgl/jinput.jar"/>
+	<classpathentry kind="lib" path="libraries/lwjgl/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="libraries/lwjgl/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="JDivers/libraries/lwjgl/native"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
