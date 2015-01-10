@@ -2,8 +2,8 @@ package jdivers;
 
 import java.awt.Font;
 
-import mainmenu.AbstractMenu;
-import mainmenu.MainMenu;
+import jdivers.mainmenu.AbstractMenu;
+import jdivers.mainmenu.MainMenu;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

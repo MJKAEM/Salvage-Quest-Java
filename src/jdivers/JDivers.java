@@ -18,13 +18,17 @@ public class JDivers extends StateBasedGame
 	public JDivers(final String gameName)
 	{
 		super(gameName);
+		
 		addState(new MainMenuState(menu));
 	}
 
 	@Override
 	public void initStatesList(final GameContainer gc) throws SlickException
 	{
+		ContentLoader.loadAllContent();
+		
 		getState(menu).init(gc, this);
+		enterState(menu);
 	}
 
 	public static void main(String[] args)
