@@ -1,5 +1,7 @@
 package jdivers.textbox;
 
+import jdivers.MouseFix;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -26,20 +28,21 @@ public class ClickTextbox extends AbstractTextbox
 			g.setColor(Color.white);
 		}
 		
+		g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
+		
+		g.setColor(Color.black);
 		g.drawString(
 				getText(),
 				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
 						getBoxWidth()),
 				getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
 						getBoxHeight()));
-		g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
 	}
 
 	public void update()
 	{
 		mouseOver = mouseInBox();
-
-		System.out.println(mouseOver);
+		System.out.println(mouseInY());
 		
 		if (mouseOver)
 		{
@@ -62,6 +65,6 @@ public class ClickTextbox extends AbstractTextbox
 
 	private boolean mouseInY()
 	{
-		return (Mouse.getY() > getBoxPosY() && Mouse.getY() < getBoxPosY() + getBoxHeight());
+		return (MouseFix.getMouseY() > getBoxPosY() && MouseFix.getMouseY() < getBoxPosY() + getBoxHeight());
 	}
 };

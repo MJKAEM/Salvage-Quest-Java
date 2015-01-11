@@ -45,6 +45,7 @@ public class MainMenuState extends BasicGameState
 			throws SlickException
 	{
 		currentMenu.update();
+		MouseFix.updateMouseY();
 	}
 
 	@Override

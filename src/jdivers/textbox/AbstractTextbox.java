@@ -23,13 +23,13 @@ public abstract class AbstractTextbox
 
 	public void show(final Graphics g)
 	{
+		g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
 		g.drawString(
 				getText(),
 				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
 						getBoxWidth()),
 				getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
 						getBoxHeight()));
-		g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
 	}
 
 	//

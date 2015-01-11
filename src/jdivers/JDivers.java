@@ -7,13 +7,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class JDivers extends StateBasedGame
 {
-	public static final String gamename = "Divers 0.1A";
 	public static final int menu = 0;
 	public static final int play = 1;
-	public static int width = 800;
-	public static int height = 600;
-	public static boolean fullScreen = false;
-	public static boolean vSync = false;
 
 	public JDivers(final String gameName)
 	{
@@ -37,11 +32,11 @@ public class JDivers extends StateBasedGame
 		
 		try
 		{
-			appgc = new AppGameContainer(new JDivers(gamename));
-			appgc.setDisplayMode(width, height, fullScreen);
+			appgc = new AppGameContainer(new JDivers(Global.gamename));
+			appgc.setDisplayMode(Global.width, Global.height, Global.fullScreen);
 			appgc.setTargetFrameRate(60);
 			appgc.setShowFPS(false);
-			appgc.setVSync(vSync);
+			appgc.setVSync(Global.vSync);
 			appgc.start();
 		}
 		catch (SlickException e)

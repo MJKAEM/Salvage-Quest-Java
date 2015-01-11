@@ -1,6 +1,6 @@
 package jdivers.textbox;
 
-import jdivers.JDivers;
+import jdivers.Global;
 
 import org.newdawn.slick.Graphics;
 
@@ -13,9 +13,9 @@ public class OutputTextbox extends AbstractTextbox
 
 		super(null,
 				20,
-				(int) (JDivers.height * 0.75),
-				JDivers.width - 40,
-				(int) (JDivers.height - (JDivers.height * 0.75) - 20));
+				(int) (Global.height * 0.75),
+				Global.width - 40,
+				(int) (Global.height - (Global.height * 0.75) - 20));
 
 	}
 
