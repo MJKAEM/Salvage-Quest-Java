@@ -2,6 +2,7 @@ package jdivers.mainmenu;
 
 import jdivers.ContentLoader;
 import jdivers.textbox.ClickTextbox;
+import jdivers.textbox.OutputTextbox;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -27,5 +28,6 @@ public class MainMenu extends AbstractMenu
 	@Override
 	public void update()
 	{
+		box1.update();
 	}
 };

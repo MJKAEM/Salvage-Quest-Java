@@ -5,6 +5,7 @@ import java.awt.Font;
 import jdivers.mainmenu.AbstractMenu;
 import jdivers.mainmenu.MainMenu;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -40,9 +41,10 @@ public class MainMenuState extends BasicGameState
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int arg2)
+	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException
 	{
+		currentMenu.update();
 	}
 
 	@Override
