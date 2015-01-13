@@ -13,7 +13,7 @@ public class OutputTextbox extends AbstractTextbox
 
 		super(null,
 				20,
-				(int) (Global.height * 0.75),
+				Global.threeFourthHeight,
 				Global.width - 40,
 				(int) (Global.height - (Global.height * 0.75) - 20));
 

@@ -1,22 +1,18 @@
 package jdivers;
 
-import java.awt.Font;
-
-import jdivers.mainmenu.AbstractMenu;
 import jdivers.mainmenu.MainMenu;
 
-import org.lwjgl.input.Mouse;
+import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MainMenuState extends BasicGameState
 {
-	private AbstractMenu currentMenu;
-	private TrueTypeFont font1;
+	private static Menu currentMenu;
+	private AngelCodeFont font1;
 
 	public MainMenuState(int state)
 	{
@@ -27,9 +23,7 @@ public class MainMenuState extends BasicGameState
 			throws SlickException
 	{
 		currentMenu = new MainMenu();
-
-		Font font = new Font("Times New Roman", Font.PLAIN, 18);
-		font1 = new TrueTypeFont(font, true);
+		font1 = ContentLoader.fonts[0];
 	}
 
 	@Override
@@ -44,8 +38,10 @@ public class MainMenuState extends BasicGameState
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException
 	{
-		currentMenu.update();
+		currentMenu.update(sbg);
+		
 		MouseFix.updateMouseY();
+		Global.updateMouseDown();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package jdivers.textbox;
 
+import jdivers.Global;
 import jdivers.MouseFix;
 
 import org.lwjgl.input.Mouse;
@@ -8,7 +9,7 @@ import org.newdawn.slick.Graphics;
 
 public class ClickTextbox extends AbstractTextbox
 {
-	private boolean mouseOver;
+	private boolean mouseOver, clicked;
 
 	public ClickTextbox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
@@ -21,35 +22,34 @@ public class ClickTextbox extends AbstractTextbox
 	{
 		if (mouseOver)
 		{
-			g.setColor(Color.black);
+			g.setColor(Color.cyan);
 		}
 		else
 		{
 			g.setColor(Color.white);
 		}
-		
+
 		g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
-		
-		g.setColor(Color.black);
+
+		g.setColor(Color.white);
 		g.drawString(
 				getText(),
 				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
 						getBoxWidth()),
 				getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
 						getBoxHeight()));
+		
+		g.setColor(Color.black);
+		g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
 	}
 
 	public void update()
 	{
 		mouseOver = mouseInBox();
-		System.out.println(mouseInY());
-		
-		if (mouseOver)
+
+		if (mouseOver && Global.mouseReleased())
 		{
-			if (Mouse.isButtonDown(1))
-			{
-				
-			}
+			isClicked(true);
 		}
 	}
 
@@ -66,5 +66,19 @@ public class ClickTextbox extends AbstractTextbox
 	private boolean mouseInY()
 	{
 		return (MouseFix.getMouseY() > getBoxPosY() && MouseFix.getMouseY() < getBoxPosY() + getBoxHeight());
+	}
+
+	//
+	// Getters and Setters
+	//
+	
+	public boolean isClicked()
+	{
+		return clicked;
+	}
+
+	public void isClicked(boolean clicked)
+	{
+		this.clicked = clicked;
 	}
 };

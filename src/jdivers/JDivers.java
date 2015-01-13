@@ -7,32 +7,29 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class JDivers extends StateBasedGame
 {
-	public static final int menu = 0;
-	public static final int play = 1;
-
 	public JDivers(final String gameName)
 	{
 		super(gameName);
-		
-		addState(new MainMenuState(menu));
+
+		addState(new MainMenuState(Global.menuStateValue));
 	}
 
 	@Override
 	public void initStatesList(final GameContainer gc) throws SlickException
 	{
 		ContentLoader.loadAllContent();
-		
-		getState(menu).init(gc, this);
-		enterState(menu);
+
+		getState(Global.menuStateValue).init(gc, this);
+		enterState(Global.menuStateValue);
 	}
 
 	public static void main(String[] args)
 	{
 		AppGameContainer appgc;
-		
+
 		try
 		{
-			appgc = new AppGameContainer(new JDivers(Global.gamename));
+			appgc = new AppGameContainer(new JDivers(Global.GAMENAME));
 			appgc.setDisplayMode(Global.width, Global.height, Global.fullScreen);
 			appgc.setTargetFrameRate(60);
 			appgc.setShowFPS(false);
