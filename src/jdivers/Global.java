@@ -33,9 +33,18 @@ public class Global
 
 	public static void updateMouseDown()
 	{
-		System.out.println("M1"+oldMouseDown);
-		System.out.println("M2"+mouseDown);
 		Global.oldMouseDown = Global.mouseDown;
 		Global.mouseDown = Mouse.isButtonDown(0);
+	}
+
+	public static void updateGlobalVariables()
+	{
+		Global.quarterHeight = Global.height >> 2;
+		Global.halfHeight = Global.height >> 1;
+		Global.threeFourthHeight = (int) (Global.height * 0.75);
+
+		Global.quarterWidth = Global.width >> 2;
+		Global.halfWidth = Global.width >> 1;
+		Global.threeFourthWidth = (int) (Global.width * 0.75);
 	}
 };

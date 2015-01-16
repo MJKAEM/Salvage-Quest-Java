@@ -1,8 +1,13 @@
 package jdivers.mainmenu;
 
+import java.util.Enumeration;
+import java.util.Vector;
+
 import jdivers.ContentLoader;
 import jdivers.Global;
+import jdivers.MainMenuState;
 import jdivers.Menu;
+import jdivers.events.MenuSelectedEvent;
 import jdivers.textbox.ClickTextbox;
 
 import org.newdawn.slick.Graphics;
@@ -13,8 +18,8 @@ public class MainMenu implements Menu
 {
 	private static Image screenImage = ContentLoader.backgroundImages[0];
 
+	private Vector<MenuSelectedEvent> _listeners;
 	private ClickTextbox playBox, optionsBox, creditsBox, exitBox;
-	private 
 
 	public MainMenu()
 	{
@@ -72,19 +77,41 @@ public class MainMenu implements Menu
 		if (playBox.isClicked())
 		{
 			playBox.isClicked(false);
-			sbg.enterState(Global.playStateValue);
+			fireMenuSwitchEvent(MainMenuState.LOAD_MENU);
 		}
 		else if (optionsBox.isClicked())
 		{
 			optionsBox.isClicked(false);
+			fireMenuSwitchEvent(MainMenuState.OPTION_MENU);
 		}
 		else if (creditsBox.isClicked())
 		{
 			creditsBox.isClicked(false);
+			fireMenuSwitchEvent(MainMenuState.CREDITS_MENU);
 		}
 		else if (exitBox.isClicked())
 		{
 			System.exit(0);
+		}
+	}
+
+	public void addListener(MenuSelectedEvent listener)
+	{
+		if (_listeners == null)
+		{
+			_listeners = new Vector<MenuSelectedEvent>();
+		}
+		_listeners.addElement(listener);
+	}
+
+	public void fireMenuSwitchEvent(int menu)
+	{
+		if (_listeners != null)
+		{
+			for (MenuSelectedEvent temp : _listeners)
+			{
+				temp.switchMenu(menu);
+			}
 		}
 	}
 };

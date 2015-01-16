@@ -21,6 +21,11 @@ public abstract class AbstractTextbox
 		this.boxHeight = boxHeight;
 	}
 
+	/**
+	 * Displays the text box, which is text encapsulated by a box.
+	 * 
+	 * @param g Graphics
+	 */
 	public void show(final Graphics g)
 	{
 		g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());

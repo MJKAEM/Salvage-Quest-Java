@@ -7,6 +7,12 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+/**
+ * A text box that displays a box and text. It can be clicked.
+ * 
+ * @author Artanis Margatroid
+ *
+ */
 public class ClickTextbox extends AbstractTextbox
 {
 	private boolean mouseOver, clicked;
@@ -38,7 +44,7 @@ public class ClickTextbox extends AbstractTextbox
 						getBoxWidth()),
 				getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
 						getBoxHeight()));
-		
+
 		g.setColor(Color.black);
 		g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
 	}
@@ -71,7 +77,7 @@ public class ClickTextbox extends AbstractTextbox
 	//
 	// Getters and Setters
 	//
-	
+
 	public boolean isClicked()
 	{
 		return clicked;

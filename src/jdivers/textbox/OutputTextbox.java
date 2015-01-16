@@ -15,7 +15,7 @@ public class OutputTextbox extends AbstractTextbox
 				20,
 				Global.threeFourthHeight,
 				Global.width - 40,
-				(int) (Global.height - (Global.height * 0.75) - 20));
+				Global.height - Global.threeFourthHeight - 20);
 
 	}
 
