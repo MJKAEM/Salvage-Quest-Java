@@ -1,28 +1,24 @@
 package jdivers.mainmenu;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
-import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.Menu;
 import jdivers.textbox.ClickTextbox;
 
-public class OptionMenu extends Menu
+public class CreditsMenu extends Menu
 {
-	private static Image screenImage = ContentLoader.backgroundImages[1];
-
 	private ClickTextbox exitBox;
 
-	public OptionMenu()
+	public CreditsMenu()
 	{
 		super();
 
 		exitBox = new ClickTextbox("Exit",
 				Global.halfWidth - 50,
-				Global.halfHeight,
+				Global.quarterHeight,
 				100,
 				100);
 	}
@@ -30,13 +26,6 @@ public class OptionMenu extends Menu
 	@Override
 	public void show(Graphics g)
 	{
-		// Display background image.
-		//
-		g.drawImage(screenImage, 0, 0, Global.width, Global.height, 0, 0, 800,
-				600);
-
-		// Display the clickable boxes.
-		//
 		exitBox.show(g);
 	}
 
@@ -54,6 +43,6 @@ public class OptionMenu extends Menu
 	@Override
 	public void mouseReleased()
 	{
-		
+		exitBox.mouseReleased();
 	}
 };

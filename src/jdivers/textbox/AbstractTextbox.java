@@ -7,9 +7,22 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class AbstractTextbox
 {
+	public static final int DEFAULT_TEXTBOX_HEIGHT = 100;
+	public static final int DEFAULT_TEXTBOX_WIDTH = 100;
+
+	public static final int DEFAULT_TEXTBOX_HALF_HEIGHT = DEFAULT_TEXTBOX_HEIGHT >> 1;
+	public static final int DEFAULT_TEXTBOX_HALF_WIDTH = DEFAULT_TEXTBOX_WIDTH >> 1;
+
 	private String text;
 	private int boxPosX, boxPosY;
 	private int boxWidth, boxHeight;
+
+	protected AbstractTextbox(final String text, final int boxPosX,
+			final int boxPosY)
+	{
+		this(text, boxPosX, boxPosY, AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+	}
 
 	protected AbstractTextbox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
@@ -24,7 +37,8 @@ public abstract class AbstractTextbox
 	/**
 	 * Displays the text box, which is text encapsulated by a box.
 	 * 
-	 * @param g Graphics
+	 * @param g
+	 *            Graphics
 	 */
 	public void show(final Graphics g)
 	{

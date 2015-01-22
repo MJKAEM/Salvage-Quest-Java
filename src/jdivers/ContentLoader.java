@@ -33,6 +33,7 @@ public class ContentLoader
 		try
 		{
 			backgroundImages[0] = new Image("resources/images/MainMenu.png");
+			backgroundImages[1] = new Image("resources/images/OptionMenu.png");
 		}
 		catch (SlickException e)
 		{

@@ -1,6 +1,5 @@
 package jdivers.textbox;
 
-import jdivers.Global;
 import jdivers.MouseFix;
 
 import org.lwjgl.input.Mouse;
@@ -15,6 +14,7 @@ import org.newdawn.slick.Graphics;
  */
 public class ClickTextbox extends AbstractTextbox
 {
+	private ClickHandler clickHandler;
 	private boolean mouseOver, clicked;
 
 	public ClickTextbox(final String text, final int boxPosX,
@@ -52,13 +52,23 @@ public class ClickTextbox extends AbstractTextbox
 	public void update()
 	{
 		mouseOver = mouseInBox();
-
-		if (mouseOver && Global.mouseReleased())
-		{
-			isClicked(true);
-		}
 	}
 
+	public void mouseReleased()
+	{
+		clickHandler.onClick();
+	}
+
+	public void setListener(ClickHandler clickHandler)
+	{
+		this.clickHandler = clickHandler;
+	}
+
+	
+	//
+	// Mouse Methods
+	//
+	
 	public boolean mouseInBox()
 	{
 		return mouseInX() && mouseInY();

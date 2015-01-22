@@ -15,36 +15,22 @@ public class Global
 	public static boolean fullScreen = false;
 	public static boolean vSync = false;
 
-	public static boolean oldMouseDown = false;
-	public static boolean mouseDown = false;
-
 	public static int quarterHeight = Global.height >> 2;
 	public static int halfHeight = Global.height >> 1;
-	public static int threeFourthHeight = (int) (Global.height * 0.75);
+	public static int threeFourthHeight = Global.quarterHeight + Global.halfHeight;
 
 	public static int quarterWidth = Global.width >> 2;
 	public static int halfWidth = Global.width >> 1;
-	public static int threeFourthWidth = (int) (Global.width * 0.75);
-
-	public static boolean mouseReleased()
-	{
-		return Global.oldMouseDown && !Global.mouseDown;
-	}
-
-	public static void updateMouseDown()
-	{
-		Global.oldMouseDown = Global.mouseDown;
-		Global.mouseDown = Mouse.isButtonDown(0);
-	}
+	public static int threeFourthWidth = Global.quarterWidth + Global.halfWidth;
 
 	public static void updateGlobalVariables()
 	{
 		Global.quarterHeight = Global.height >> 2;
 		Global.halfHeight = Global.height >> 1;
-		Global.threeFourthHeight = (int) (Global.height * 0.75);
+		Global.threeFourthHeight = Global.quarterHeight + Global.halfHeight;
 
 		Global.quarterWidth = Global.width >> 2;
 		Global.halfWidth = Global.width >> 1;
-		Global.threeFourthWidth = (int) (Global.width * 0.75);
+		Global.threeFourthWidth = Global.quarterWidth + Global.halfWidth;
 	}
 };

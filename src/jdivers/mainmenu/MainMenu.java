@@ -1,33 +1,41 @@
 package jdivers.mainmenu;
 
-import java.util.Enumeration;
-import java.util.Vector;
 
 import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.Menu;
-import jdivers.events.MenuSelectedEvent;
+import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextbox;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class MainMenu implements Menu
+public class MainMenu extends Menu
 {
 	private static Image screenImage = ContentLoader.backgroundImages[0];
 
-	private Vector<MenuSelectedEvent> _listeners;
 	private ClickTextbox playBox, optionsBox, creditsBox, exitBox;
 
 	public MainMenu()
 	{
+		super();
+
 		playBox = new ClickTextbox("Play",
 				Global.quarterWidth - 50,
 				Global.halfHeight,
 				100,
 				100);
+		
+		playBox.setListener(new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				System.out.println("lol");
+			}
+		});
 
 		optionsBox = new ClickTextbox("Options",
 				Global.threeFourthWidth - 50,
@@ -77,17 +85,14 @@ public class MainMenu implements Menu
 		if (playBox.isClicked())
 		{
 			playBox.isClicked(false);
-			fireMenuSwitchEvent(MainMenuState.LOAD_MENU);
 		}
 		else if (optionsBox.isClicked())
 		{
 			optionsBox.isClicked(false);
-			fireMenuSwitchEvent(MainMenuState.OPTION_MENU);
 		}
 		else if (creditsBox.isClicked())
 		{
 			creditsBox.isClicked(false);
-			fireMenuSwitchEvent(MainMenuState.CREDITS_MENU);
 		}
 		else if (exitBox.isClicked())
 		{
@@ -95,23 +100,10 @@ public class MainMenu implements Menu
 		}
 	}
 
-	public void addListener(MenuSelectedEvent listener)
+	@Override
+	public void mouseReleased()
 	{
-		if (_listeners == null)
-		{
-			_listeners = new Vector<MenuSelectedEvent>();
-		}
-		_listeners.addElement(listener);
+		playBox.mouseReleased();
 	}
 
-	public void fireMenuSwitchEvent(int menu)
-	{
-		if (_listeners != null)
-		{
-			for (MenuSelectedEvent temp : _listeners)
-			{
-				temp.switchMenu(menu);
-			}
-		}
-	}
 };
