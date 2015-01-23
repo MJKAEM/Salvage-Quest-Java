@@ -15,29 +15,70 @@ import org.newdawn.slick.Graphics;
 public class ClickTextbox extends AbstractTextbox
 {
 	private ClickHandler clickHandler;
-	private boolean mouseOver, clicked;
+	private boolean mouseOver;
+
+	public ClickTextbox(final String text, final int boxPosX,
+			final int boxPosY)
+	{
+		this(text, boxPosX, boxPosY, AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+	}
 
 	public ClickTextbox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
-		super(text, boxPosX, boxPosY, boxWidth, boxHeight);
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
+	}
+
+	public ClickTextbox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxCol)
+	{
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, null);
+	}
+
+	public ClickTextbox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxCol, final Color textCol)
+	{
+		super(text, boxPosX, boxPosY, boxWidth, boxHeight, boxCol, textCol);
 	}
 
 	@Override
 	public void show(final Graphics g)
 	{
-		if (mouseOver)
+		g.setLineWidth(1);
+
+		if (getBoxCol() == null)
 		{
-			g.setColor(Color.cyan);
+			g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+					getBoxHeight());
 		}
 		else
 		{
-			g.setColor(Color.white);
+			if (mouseOver)
+			{
+				g.setColor(Color.cyan);
+			}
+			else
+			{
+				g.setColor(getBoxCol());
+			}
+
+			g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+					getBoxHeight());
 		}
 
-		g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
+		if (getTextCol() == null)
+		{
+			g.setColor(Color.white);
 
-		g.setColor(Color.white);
+		}
+		else
+		{
+			g.setColor(getTextCol());
+		}
+
 		g.drawString(
 				getText(),
 				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
@@ -56,7 +97,10 @@ public class ClickTextbox extends AbstractTextbox
 
 	public void mouseReleased()
 	{
-		clickHandler.onClick();
+		if (isMouseOver())
+		{
+			clickHandler.onClick();
+		}
 	}
 
 	public void setListener(ClickHandler clickHandler)
@@ -64,11 +108,10 @@ public class ClickTextbox extends AbstractTextbox
 		this.clickHandler = clickHandler;
 	}
 
-	
 	//
 	// Mouse Methods
 	//
-	
+
 	public boolean mouseInBox()
 	{
 		return mouseInX() && mouseInY();
@@ -88,13 +131,13 @@ public class ClickTextbox extends AbstractTextbox
 	// Getters and Setters
 	//
 
-	public boolean isClicked()
+	public boolean isMouseOver()
 	{
-		return clicked;
+		return mouseOver;
 	}
 
-	public void isClicked(boolean clicked)
+	public void setMouseOver(boolean mouseOver)
 	{
-		this.clicked = clicked;
+		this.mouseOver = mouseOver;
 	}
 };

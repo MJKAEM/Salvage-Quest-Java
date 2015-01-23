@@ -1,5 +1,6 @@
 package jdivers.textbox;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 
@@ -7,13 +8,14 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class AbstractTextbox
 {
-	public static final int DEFAULT_TEXTBOX_HEIGHT = 100;
+	public static final int DEFAULT_TEXTBOX_HEIGHT = 50;
 	public static final int DEFAULT_TEXTBOX_WIDTH = 100;
 
 	public static final int DEFAULT_TEXTBOX_HALF_HEIGHT = DEFAULT_TEXTBOX_HEIGHT >> 1;
 	public static final int DEFAULT_TEXTBOX_HALF_WIDTH = DEFAULT_TEXTBOX_WIDTH >> 1;
 
 	private String text;
+	private Color boxCol, textCol;
 	private int boxPosX, boxPosY;
 	private int boxWidth, boxHeight;
 
@@ -27,11 +29,35 @@ public abstract class AbstractTextbox
 	protected AbstractTextbox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
+	}
+
+	protected AbstractTextbox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxCol)
+	{
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxCol, null);
+	}
+
+	protected AbstractTextbox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxCol, final Color textCol)
+	{
 		this.text = text;
 		this.boxPosX = boxPosX;
 		this.boxPosY = boxPosY;
 		this.boxWidth = boxWidth;
 		this.boxHeight = boxHeight;
+
+		if (boxCol == null)
+		{
+			this.boxCol = Color.white;
+		}
+		else
+		{
+			this.boxCol = boxCol;
+		}
+		this.textCol = textCol;
 	}
 
 	/**
@@ -42,7 +68,27 @@ public abstract class AbstractTextbox
 	 */
 	public void show(final Graphics g)
 	{
-		g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
+		g.setLineWidth(1);
+		if (boxCol == null)
+		{
+			g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+					getBoxHeight());
+		}
+		else
+		{
+			g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+					getBoxHeight());
+		}
+
+		if (textCol == null)
+		{
+			g.setColor(Color.white);
+		}
+		else
+		{
+			g.setColor(textCol);
+		}
+
 		g.drawString(
 				getText(),
 				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
@@ -103,6 +149,26 @@ public abstract class AbstractTextbox
 	public void setBoxHeight(int boxHeight)
 	{
 		this.boxHeight = boxHeight;
+	}
+
+	public Color getBoxCol()
+	{
+		return boxCol;
+	}
+
+	public void setBoxCol(Color boxCol)
+	{
+		this.boxCol = boxCol;
+	}
+
+	public Color getTextCol()
+	{
+		return textCol;
+	}
+
+	public void setTextCol(Color textCol)
+	{
+		this.textCol = textCol;
 	}
 
 	/**

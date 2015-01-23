@@ -44,11 +44,6 @@ public class OptionMenu extends Menu
 	public void update(StateBasedGame sbg)
 	{
 		exitBox.update();
-
-		if (exitBox.isClicked())
-		{
-			exitBox.isClicked(false);
-		}
 	}
 
 	@Override

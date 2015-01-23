@@ -1,33 +1,41 @@
 package jdivers.mainmenu;
 
-
 import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.Menu;
+import jdivers.textbox.AbstractTextbox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextbox;
+import jdivers.textbox.TransparentClickTextbox;
 
+import org.newdawn.slick.AngelCodeFont;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MainMenu extends Menu
 {
+	private static final String titleName = "Divers";
 	private static Image screenImage = ContentLoader.backgroundImages[0];
 
-	private ClickTextbox playBox, optionsBox, creditsBox, exitBox;
+	private static AngelCodeFont titleFont;
+
+	private ClickTextbox playBox, optionsBox, exitBox;
+	private ClickHandler playHandler, optionsHandler;
 
 	public MainMenu()
 	{
 		super();
 
-		playBox = new ClickTextbox("Play",
-				Global.quarterWidth - 50,
+		playBox = new TransparentClickTextbox(
+				"Play",
+				0,
 				Global.halfHeight,
-				100,
-				100);
-		
+				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+
 		playBox.setListener(new ClickHandler()
 		{
 			@Override
@@ -37,23 +45,29 @@ public class MainMenu extends Menu
 			}
 		});
 
-		optionsBox = new ClickTextbox("Options",
-				Global.threeFourthWidth - 50,
+		final int widthScreenPlacement = Global.width - AbstractTextbox.DEFAULT_TEXTBOX_WIDTH;
+
+		optionsBox = new TransparentClickTextbox(
+				"Options",
+				widthScreenPlacement,
 				Global.halfHeight,
-				100,
-				100);
+				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
 
-		creditsBox = new ClickTextbox("Credits",
-				Global.quarterWidth - 50,
+		exitBox = new TransparentClickTextbox("Exit",
+				widthScreenPlacement,
 				Global.threeFourthHeight,
-				100,
-				100);
+				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
 
-		exitBox = new ClickTextbox("Exit",
-				Global.threeFourthWidth - 50,
-				Global.threeFourthHeight,
-				100,
-				100);
+		exitBox.setListener(new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				System.exit(0);
+			}
+		});
 	}
 
 	@Override
@@ -68,8 +82,18 @@ public class MainMenu extends Menu
 		//
 		playBox.show(g);
 		optionsBox.show(g);
-		creditsBox.show(g);
 		exitBox.show(g);
+
+		// Display the game name.
+		//
+		g.setColor(Color.white);
+		g.setFont(titleFont);
+
+		final int titleXPlacement = titleFont.getWidth(titleName) >> 1;
+
+		g.drawString(titleName,
+				Global.halfWidth - titleXPlacement,
+				10);
 	}
 
 	@Override
@@ -77,33 +101,44 @@ public class MainMenu extends Menu
 	{
 		playBox.update();
 		optionsBox.update();
-		creditsBox.update();
 		exitBox.update();
-
-		// Perform an action if one of the boxes are clicked.
-		//
-		if (playBox.isClicked())
-		{
-			playBox.isClicked(false);
-		}
-		else if (optionsBox.isClicked())
-		{
-			optionsBox.isClicked(false);
-		}
-		else if (creditsBox.isClicked())
-		{
-			creditsBox.isClicked(false);
-		}
-		else if (exitBox.isClicked())
-		{
-			System.exit(0);
-		}
 	}
 
 	@Override
 	public void mouseReleased()
 	{
 		playBox.mouseReleased();
+		optionsBox.mouseReleased();
+		exitBox.mouseReleased();
 	}
 
+	/**
+	 * Sets the listener for a text box.<br>
+	 * <br>
+	 * <b> 0 = playBox<br>
+	 * 1 = optionsBox</b>
+	 * 
+	 * @param clickHandler
+	 *            the clickHandler used for the text box upon clicking
+	 * @param index
+	 *            index of box to modify
+	 */
+	public void setListener(ClickHandler clickHandler, int index)
+	{
+		switch (index)
+		{
+			case 0:
+				playBox.setListener(clickHandler);
+				break;
+
+			case 1:
+				optionsBox.setListener(clickHandler);
+				break;
+		}
+	}
+
+	public void setTitleFont(final AngelCodeFont font)
+	{
+		MainMenu.titleFont = font;
+	}
 };

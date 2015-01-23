@@ -17,10 +17,23 @@ public class ContentLoader
 
 	public static void loadFonts()
 	{
+		final String fontPath = "resources/fonts/";
+		final String fontExtName = ".fnt";
+		final String fontChartExtName = "_0.png";
+
 		try
 		{
-			fonts[0] = new AngelCodeFont("resources/fonts/arialFont24Outline.fnt",
-					"resources/fonts/arialFont24Outline_0.png");
+			final String arialFontName = "ArialFont";
+
+			fonts[0] = new AngelCodeFont(
+					fontPath + arialFontName + "24Outline" + fontExtName,
+					fontPath + arialFontName + "24Outline" + fontChartExtName);
+			fonts[1] = new AngelCodeFont(
+					fontPath + arialFontName + "18" + fontExtName,
+					fontPath + arialFontName + "18" + fontChartExtName);
+			fonts[2] = new AngelCodeFont(
+					fontPath + arialFontName + "36" + fontExtName,
+					fontPath + arialFontName + "36" + fontChartExtName);
 		}
 		catch (SlickException e)
 		{
@@ -30,10 +43,12 @@ public class ContentLoader
 
 	public static void loadImages()
 	{
+		final String fontPath = "resources/images/";
+
 		try
 		{
-			backgroundImages[0] = new Image("resources/images/MainMenu.png");
-			backgroundImages[1] = new Image("resources/images/OptionMenu.png");
+			backgroundImages[0] = new Image(fontPath + "MainMenu.png");
+			backgroundImages[1] = new Image(fontPath + "OptionMenu.png");
 		}
 		catch (SlickException e)
 		{

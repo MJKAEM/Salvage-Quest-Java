@@ -3,8 +3,10 @@ package jdivers;
 import jdivers.events.MenuSelectedEvent;
 import jdivers.mainmenu.MainMenu;
 import jdivers.mainmenu.OptionMenu;
+import jdivers.textbox.ClickHandler;
 
 import org.newdawn.slick.AngelCodeFont;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -22,14 +24,16 @@ public class MainMenuState extends BasicGameState
 	private static OptionMenu optionMenu;
 
 	private static Menu currentMenu;
-	private AngelCodeFont font1;
+	private AngelCodeFont font1, copyrightFont;
+
+	private ClickHandler switchMainMenu, switchPlayState, switchOptionsMenu;
 
 	public MainMenuState(int state)
 	{
 	}
 
 	@Override
-	public void init(GameContainer gc, StateBasedGame sbg)
+	public void init(final GameContainer gc, final StateBasedGame sbg)
 			throws SlickException
 	{
 		mainMenu = new MainMenu();
@@ -38,6 +42,38 @@ public class MainMenuState extends BasicGameState
 		currentMenu = mainMenu;
 
 		font1 = ContentLoader.fonts[0];
+		copyrightFont = ContentLoader.fonts[1];
+		mainMenu.setTitleFont(ContentLoader.fonts[2]);
+
+		switchMainMenu = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = mainMenu;
+			}
+		};
+
+		switchPlayState = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				sbg.enterState(Global.playStateValue);
+			}
+		};
+
+		switchOptionsMenu = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = optionMenu;
+			}
+		};
+
+		mainMenu.setListener(switchPlayState, 0);
+		mainMenu.setListener(switchOptionsMenu, 1);
 	}
 
 	@Override
@@ -46,6 +82,7 @@ public class MainMenuState extends BasicGameState
 	{
 		g.setFont(font1);
 		currentMenu.show(g);
+		showAuthor(g);
 	}
 
 	@Override
@@ -72,5 +109,17 @@ public class MainMenuState extends BasicGameState
 	public int getID()
 	{
 		return 0;
+	}
+
+	public void showAuthor(final Graphics g)
+	{
+		final String copyright = "\u00A9Artanis Margatroid 2015";
+
+		g.setFont(copyrightFont);
+		g.setColor(Color.white);
+		g.drawString(copyright,
+				Global.width - g.getFont().getWidth(copyright),
+				Global.height - 20);
+		// Global.height - g.getFont().getHeight(copyright));
 	}
 };

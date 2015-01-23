@@ -6,6 +6,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.Menu;
+import jdivers.textbox.AbstractTextbox;
 import jdivers.textbox.ClickTextbox;
 
 public class CreditsMenu extends Menu
@@ -17,10 +18,10 @@ public class CreditsMenu extends Menu
 		super();
 
 		exitBox = new ClickTextbox("Exit",
-				Global.halfWidth - 50,
+				Global.halfWidth - AbstractTextbox.DEFAULT_TEXTBOX_HALF_WIDTH,
 				Global.quarterHeight,
-				100,
-				100);
+				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
 	@Override
@@ -33,11 +34,6 @@ public class CreditsMenu extends Menu
 	public void update(StateBasedGame sbg)
 	{
 		exitBox.update();
-
-		if (exitBox.isClicked())
-		{
-			exitBox.isClicked(false);
-		}
 	}
 
 	@Override
