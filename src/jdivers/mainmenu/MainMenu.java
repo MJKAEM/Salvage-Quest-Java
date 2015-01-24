@@ -3,7 +3,7 @@ package jdivers.mainmenu;
 import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
-import jdivers.Menu;
+import jdivers.AbstractMenu;
 import jdivers.textbox.AbstractTextbox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextbox;
@@ -13,9 +13,8 @@ import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.state.StateBasedGame;
 
-public class MainMenu extends Menu
+public class MainMenu extends AbstractMenu
 {
 	private static final String titleName = "Divers";
 	private static Image screenImage = ContentLoader.backgroundImages[0];
@@ -87,7 +86,7 @@ public class MainMenu extends Menu
 	}
 
 	@Override
-	public void update(StateBasedGame sbg)
+	public void update()
 	{
 		playBox.update();
 		optionsBox.update();

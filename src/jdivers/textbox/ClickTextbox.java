@@ -72,7 +72,6 @@ public class ClickTextbox extends AbstractTextbox
 		if (getTextCol() == null)
 		{
 			g.setColor(Color.white);
-
 		}
 		else
 		{

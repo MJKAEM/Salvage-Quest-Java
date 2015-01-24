@@ -15,11 +15,28 @@ public class TransparentClickTextbox extends ClickTextbox
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color textCol)
 	{
-		super(text, boxPosX, boxPosY, boxWidth, boxHeight, null, textCol);
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, textCol);
+	}
+
+	public TransparentClickTextbox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxCol, final Color textCol)
+	{
+		super(text, boxPosX, boxPosY, boxWidth, boxHeight, boxCol, textCol);
+
+		if (boxCol == null)
+		{
+			setBoxCol(new Color(255, 255, 255, 100));
+		}
+		else
+		{
+			getBoxCol().a = 100;
+		}
 	}
 
 	/**
-	 * Displays text in two partially transparent horizontal lines. The text changes to yellow 
+	 * Displays text in two partially transparent horizontal lines. The text
+	 * changes to yellow.
 	 */
 	@Override
 	public void show(final Graphics g)
@@ -42,7 +59,7 @@ public class TransparentClickTextbox extends ClickTextbox
 
 		g.setLineWidth(2);
 
-		g.setColor(new Color(255, 255, 255, 100));
+		g.setColor(getBoxCol());
 
 		g.drawLine(getBoxPosX(), getBoxPosY(), getBoxPosX() + getBoxWidth(),
 				getBoxPosY());

@@ -4,9 +4,8 @@ import jdivers.textbox.ClickHandler;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.state.StateBasedGame;
 
-public abstract class Menu
+public abstract class AbstractMenu
 {
 	/**
 	 * Displays the menu graphics on the screen.
@@ -16,7 +15,10 @@ public abstract class Menu
 	 */
 	public abstract void show(final Graphics g);
 
-	public abstract void update(final StateBasedGame sbg);
+	/**
+	 * Updates all the information in the menu.
+	 */
+	public abstract void update();
 
 	/**
 	 * The action taken after a mouse press is released.

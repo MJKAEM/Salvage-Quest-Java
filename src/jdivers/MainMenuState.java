@@ -17,7 +17,7 @@ public class MainMenuState extends BasicGameState
 	private MainMenu mainMenu;
 	private OptionMenu optionMenu;
 
-	private Menu currentMenu;
+	private AbstractMenu currentMenu;
 	private AngelCodeFont textboxFont, copyrightFont;
 
 	private ClickHandler switchMainMenu, switchPlayState, switchOptionsMenu;
@@ -85,7 +85,7 @@ public class MainMenuState extends BasicGameState
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException
 	{
-		currentMenu.update(sbg);
+		currentMenu.update();
 
 		MouseFix.updateMouseY();
 	}

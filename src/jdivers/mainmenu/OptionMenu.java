@@ -2,18 +2,17 @@ package jdivers.mainmenu;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.state.StateBasedGame;
 
 import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
-import jdivers.Menu;
+import jdivers.AbstractMenu;
 import jdivers.textbox.AbstractTextbox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextbox;
 import jdivers.textbox.TransparentClickTextbox;
 
-public class OptionMenu extends Menu
+public class OptionMenu extends AbstractMenu
 {
 	private static Image screenImage = ContentLoader.backgroundImages[1];
 
@@ -44,7 +43,7 @@ public class OptionMenu extends Menu
 	}
 
 	@Override
-	public void update(StateBasedGame sbg)
+	public void update()
 	{
 		exitBox.update();
 	}

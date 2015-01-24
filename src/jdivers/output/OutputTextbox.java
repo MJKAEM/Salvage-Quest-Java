@@ -12,8 +12,6 @@ import org.newdawn.slick.Graphics;
 
 public class OutputTextbox extends AbstractTextbox
 {
-	public static AngelCodeFont textFont;
-
 	private LinkedList<String> stringList;
 
 	public OutputTextbox()
@@ -34,15 +32,9 @@ public class OutputTextbox extends AbstractTextbox
 		println("lol");
 	}
 
-	public void init()
-	{
-		textFont = ContentLoader.fonts[3];
-	}
-
 	@Override
 	public void show(Graphics g)
 	{
-		g.setFont(textFont);
 		g.setLineWidth(1);
 		g.setColor(new Color(255, 255, 255, 100));
 		//g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());

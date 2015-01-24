@@ -1,17 +1,16 @@
 package jdivers.mainmenu;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.state.StateBasedGame;
 
 import jdivers.Global;
 import jdivers.MainMenuState;
-import jdivers.Menu;
+import jdivers.AbstractMenu;
 import jdivers.textbox.AbstractTextbox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextbox;
 
 @Deprecated
-public class CreditsMenu extends Menu
+public class CreditsMenu extends AbstractMenu
 {
 	private ClickTextbox exitBox;
 
@@ -33,7 +32,7 @@ public class CreditsMenu extends Menu
 	}
 
 	@Override
-	public void update(StateBasedGame sbg)
+	public void update()
 	{
 		exitBox.update();
 	}

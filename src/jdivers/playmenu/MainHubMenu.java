@@ -1,40 +1,50 @@
 package jdivers.playmenu;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.state.StateBasedGame;
 
 import jdivers.ContentLoader;
-import jdivers.Menu;
+import jdivers.AbstractMenu;
+import jdivers.textbox.AbstractTextbox;
 import jdivers.textbox.ClickHandler;
+import jdivers.textbox.TransparentClickTextbox;
 
-public class MainHubMenu extends Menu
+public class MainHubMenu extends AbstractMenu
 {
 	private static Image screenImage = ContentLoader.backgroundImages[0];
 
+	private TransparentClickTextbox shopBox;
+
 	public MainHubMenu()
 	{
-		
+		shopBox = new TransparentClickTextbox("Shop",
+				0,
+				1,
+				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT, 
+				Color.gray, 
+				null);
 	}
-	
+
 	@Override
 	public void show(Graphics g)
 	{
 		showBackground(g, screenImage);
+
+		shopBox.show(g);
 	}
 
 	@Override
-	public void update(StateBasedGame sbg)
+	public void update()
 	{
-		// TODO Auto-generated method stub
-
+		shopBox.update();
 	}
 
 	@Override
 	public void mouseReleased()
 	{
-		// TODO Auto-generated method stub
-
+		shopBox.mouseReleased();
 	}
 
 	@Override
