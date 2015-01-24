@@ -24,6 +24,7 @@ public class ContentLoader
 		try
 		{
 			final String arialFontName = "ArialFont";
+			final String timesFontName = "TimesFont";
 
 			fonts[0] = new AngelCodeFont(
 					fontPath + arialFontName + "24Outline" + fontExtName,
@@ -34,6 +35,9 @@ public class ContentLoader
 			fonts[2] = new AngelCodeFont(
 					fontPath + arialFontName + "36" + fontExtName,
 					fontPath + arialFontName + "36" + fontChartExtName);
+			fonts[3] = new AngelCodeFont(
+					fontPath + timesFontName + "18" + fontExtName,
+					fontPath + timesFontName + "18" + fontChartExtName);
 		}
 		catch (SlickException e)
 		{

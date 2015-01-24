@@ -18,18 +18,19 @@ public class TransparentClickTextbox extends ClickTextbox
 		super(text, boxPosX, boxPosY, boxWidth, boxHeight, null, textCol);
 	}
 
+	/**
+	 * Displays text in two partially transparent horizontal lines. The text changes to yellow 
+	 */
 	@Override
 	public void show(final Graphics g)
 	{
-		g.setColor(getTextCol());
-
 		if (mouseInBox())
 		{
 			g.setColor(Color.yellow);
 		}
 		else
 		{
-			g.setColor(Color.white);
+			g.setColor(getTextCol());
 		}
 
 		g.drawString(

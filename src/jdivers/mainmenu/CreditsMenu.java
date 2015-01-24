@@ -7,8 +7,10 @@ import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.Menu;
 import jdivers.textbox.AbstractTextbox;
+import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextbox;
 
+@Deprecated
 public class CreditsMenu extends Menu
 {
 	private ClickTextbox exitBox;
@@ -40,5 +42,12 @@ public class CreditsMenu extends Menu
 	public void mouseReleased()
 	{
 		exitBox.mouseReleased();
+	}
+
+	@Override
+	public void setListener(ClickHandler clickHandler, int index)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 };

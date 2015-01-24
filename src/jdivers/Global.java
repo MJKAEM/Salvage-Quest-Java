@@ -1,7 +1,5 @@
 package jdivers;
 
-import org.lwjgl.input.Mouse;
-
 public class Global
 {
 	public static final String GAMENAME = "Divers 0.1A";

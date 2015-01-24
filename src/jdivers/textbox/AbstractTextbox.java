@@ -57,7 +57,14 @@ public abstract class AbstractTextbox
 		{
 			this.boxCol = boxCol;
 		}
-		this.textCol = textCol;
+		if(textCol == null)
+		{
+			this.textCol = Color.white;
+		}
+		else
+		{
+			this.textCol = textCol;
+		}
 	}
 
 	/**

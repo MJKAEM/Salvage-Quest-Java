@@ -36,15 +36,6 @@ public class MainMenu extends Menu
 				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
 				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
 
-		playBox.setListener(new ClickHandler()
-		{
-			@Override
-			public void onClick()
-			{
-				System.out.println("lol");
-			}
-		});
-
 		final int widthScreenPlacement = Global.width - AbstractTextbox.DEFAULT_TEXTBOX_WIDTH;
 
 		optionsBox = new TransparentClickTextbox(
@@ -55,7 +46,7 @@ public class MainMenu extends Menu
 				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
 
 		exitBox = new TransparentClickTextbox("Exit",
-				widthScreenPlacement,
+				0,
 				Global.threeFourthHeight,
 				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
 				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
@@ -75,8 +66,7 @@ public class MainMenu extends Menu
 	{
 		// Display background image.
 		//
-		g.drawImage(screenImage, 0, 0, Global.width, Global.height, 0, 0, 800,
-				600);
+		showBackground(g, screenImage);
 
 		// Display the clickable boxes.
 		//
@@ -134,6 +124,9 @@ public class MainMenu extends Menu
 			case 1:
 				optionsBox.setListener(clickHandler);
 				break;
+
+			default:
+				throw new IllegalArgumentException("Index is out of range!");
 		}
 	}
 

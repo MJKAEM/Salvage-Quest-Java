@@ -1,6 +1,5 @@
 package jdivers;
 
-import jdivers.events.MenuSelectedEvent;
 import jdivers.mainmenu.MainMenu;
 import jdivers.mainmenu.OptionMenu;
 import jdivers.textbox.ClickHandler;
@@ -15,16 +14,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MainMenuState extends BasicGameState
 {
-	public static final int MAIN_MENU = 1;
-	public static final int OPTION_MENU = 2;
-	public static final int CREDITS_MENU = 3;
-	public static final int LOAD_MENU = 4;
+	private MainMenu mainMenu;
+	private OptionMenu optionMenu;
 
-	private static MainMenu mainMenu;
-	private static OptionMenu optionMenu;
-
-	private static Menu currentMenu;
-	private AngelCodeFont font1, copyrightFont;
+	private Menu currentMenu;
+	private AngelCodeFont textboxFont, copyrightFont;
 
 	private ClickHandler switchMainMenu, switchPlayState, switchOptionsMenu;
 
@@ -41,7 +35,7 @@ public class MainMenuState extends BasicGameState
 
 		currentMenu = mainMenu;
 
-		font1 = ContentLoader.fonts[0];
+		textboxFont = ContentLoader.fonts[0];
 		copyrightFont = ContentLoader.fonts[1];
 		mainMenu.setTitleFont(ContentLoader.fonts[2]);
 
@@ -74,13 +68,15 @@ public class MainMenuState extends BasicGameState
 
 		mainMenu.setListener(switchPlayState, 0);
 		mainMenu.setListener(switchOptionsMenu, 1);
+
+		optionMenu.setListener(switchMainMenu, -1);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException
 	{
-		g.setFont(font1);
+		g.setFont(textboxFont);
 		currentMenu.show(g);
 		showAuthor(g);
 	}
@@ -108,7 +104,7 @@ public class MainMenuState extends BasicGameState
 	@Override
 	public int getID()
 	{
-		return 0;
+		return Global.menuStateValue;
 	}
 
 	public void showAuthor(final Graphics g)
@@ -116,10 +112,9 @@ public class MainMenuState extends BasicGameState
 		final String copyright = "\u00A9Artanis Margatroid 2015";
 
 		g.setFont(copyrightFont);
-		g.setColor(Color.white);
+		g.setColor(Color.black);
 		g.drawString(copyright,
 				Global.width - g.getFont().getWidth(copyright),
 				Global.height - 20);
-		// Global.height - g.getFont().getHeight(copyright));
 	}
 };

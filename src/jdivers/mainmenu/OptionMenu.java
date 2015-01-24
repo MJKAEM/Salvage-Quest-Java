@@ -8,7 +8,10 @@ import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.Menu;
+import jdivers.textbox.AbstractTextbox;
+import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextbox;
+import jdivers.textbox.TransparentClickTextbox;
 
 public class OptionMenu extends Menu
 {
@@ -20,11 +23,11 @@ public class OptionMenu extends Menu
 	{
 		super();
 
-		exitBox = new ClickTextbox("Exit",
-				Global.halfWidth - 50,
-				Global.halfHeight,
-				100,
-				100);
+		exitBox = new TransparentClickTextbox("Exit",
+				0,
+				Global.threeFourthHeight,
+				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
 	@Override
@@ -49,6 +52,20 @@ public class OptionMenu extends Menu
 	@Override
 	public void mouseReleased()
 	{
-		
+		exitBox.mouseReleased();
+	}
+
+	@Override
+	public void setListener(final ClickHandler clickHandler, final int index)
+	{
+		switch (index)
+		{
+			case -1:
+				exitBox.setListener(clickHandler);
+				break;
+
+			default:
+				throw new IllegalArgumentException("Index is out of range!");
+		}
 	}
 };
