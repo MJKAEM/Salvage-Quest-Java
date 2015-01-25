@@ -3,12 +3,12 @@ package jdivers.output;
 import java.util.LinkedList;
 
 import jdivers.Global;
-import jdivers.textbox.AbstractTextBox;
+import jdivers.textbox.BasicTextBox;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class OutputTextBox extends AbstractTextBox
+public class OutputTextBox extends BasicTextBox
 {
 	private LinkedList<String> stringList;
 
@@ -33,18 +33,29 @@ public class OutputTextBox extends AbstractTextBox
 	@Override
 	public void show(Graphics g)
 	{
-		g.setLineWidth(1);
-		g.setColor(new Color(255, 255, 255, 100));
-		//g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
-		g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
-
-		g.setColor(Color.black);
-
-		for (int i = stringList.size() - 1; i >= 0; --i)
+		try
 		{
-			g.drawString(stringList.get(i),
-					getBoxPosX() + 10,
-					getBoxPosY() + getBoxHeight() - (20 + (20 * i)));
+			g.setLineWidth(1);
+			g.setColor(new Color(255, 255, 255, 100));
+			// g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+			// getBoxHeight());
+			g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+					getBoxHeight());
+
+			g.setColor(Color.black);
+
+			for (int i = stringList.size() - 1; i >= 0; --i)
+			{
+				g.drawString(stringList.get(i),
+						getBoxPosX() + 10,
+						getBoxPosY() + getBoxHeight() - (20 + (20 * i)));
+			}
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("NullPointerException " +
+					"TextBox Error\n" + toString());
+			System.exit(1);
 		}
 	}
 

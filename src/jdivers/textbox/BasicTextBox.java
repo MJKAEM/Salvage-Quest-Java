@@ -14,7 +14,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Artanis Margatroid
  *
  */
-public abstract class AbstractTextBox
+public class BasicTextBox
 {
 	public static final int DEFAULT_TEXTBOX_HEIGHT = 50;
 	public static final int DEFAULT_TEXTBOX_WIDTH = 100;
@@ -23,7 +23,8 @@ public abstract class AbstractTextBox
 	public static final int DEFAULT_TEXTBOX_HALF_WIDTH = DEFAULT_TEXTBOX_WIDTH >> 1;
 
 	private String text;
-	private Color boxCol, textCol;
+	private Color textColor, boxBorderColor, boxFillColor;
+	
 	private int boxPosX, boxPosY;
 	private int boxWidth, boxHeight;
 
@@ -37,11 +38,11 @@ public abstract class AbstractTextBox
 	 * @param boxPosY
 	 *            the y-axis position of top side the box
 	 */
-	protected AbstractTextBox(final String text, final int boxPosX,
+	protected BasicTextBox(final String text, final int boxPosX,
 			final int boxPosY)
 	{
-		this(text, boxPosX, boxPosY, AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
+		this(text, boxPosX, boxPosY, BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
 	/**
@@ -58,7 +59,7 @@ public abstract class AbstractTextBox
 	 * @param boxHeight
 	 *            the size of the box, extending downward
 	 */
-	protected AbstractTextBox(final String text, final int boxPosX,
+	protected BasicTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
@@ -77,15 +78,15 @@ public abstract class AbstractTextBox
 	 *            the size of the box, extending to the right
 	 * @param boxHeight
 	 *            the size of the box, extending downward
-	 * @param boxCol
-	 *            the color of the inside area of the box; if <code>null</code>,
-	 *            it will be transparent
+	 * @param boxBorderColor
+	 *            the color of the outside area of the box; if <code>null</code>
+	 *            , it will be transparent
 	 */
-	protected AbstractTextBox(final String text, final int boxPosX,
+	protected BasicTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
-			final Color boxCol)
+			final Color boxBorderColor)
 	{
-		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxCol, null);
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor, null);
 	}
 
 	/**
@@ -101,35 +102,69 @@ public abstract class AbstractTextBox
 	 *            the size of the box, extending to the right
 	 * @param boxHeight
 	 *            the size of the box, extending downward
-	 * @param boxCol
-	 *            the color of the inside area of the box; if <code>null</code>,
-	 *            it will be transparent
-	 * @param textCol
+	 * @param boxBorderColor
+	 *            the color of the outside area of the box; if <code>null</code>
+	 *            , it will be transparent
+	 * @param textColor
 	 *            the color of the text in the box; if <code>null</code>, it
 	 *            will be white
 	 */
-	protected AbstractTextBox(final String text, final int boxPosX,
+	protected BasicTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
-			final Color boxCol, final Color textCol)
+			final Color boxBorderColor, final Color textColor)
+	{
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor, null,
+				textColor);
+	}
+
+	/**
+	 * Constructs a text box that contains text inside an enclosed box.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 * @param boxBorderColor
+	 *            the color of the outside area of the box; if <code>null</code>
+	 *            , it will be transparent
+	 * @param boxFillColor
+	 *            the color of the inside area of the box; if <code>null</code>,
+	 *            it will be transparent
+	 * @param textColor
+	 *            the color of the text in the box; if <code>null</code>, it
+	 *            will be white
+	 */
+	protected BasicTextBox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxBorderColor, final Color boxFillColor,
+			final Color textColor)
 	{
 		this.text = text;
 		this.boxPosX = boxPosX;
 		this.boxPosY = boxPosY;
 		this.boxWidth = boxWidth;
 		this.boxHeight = boxHeight;
-		this.boxCol = boxCol;
+		this.boxBorderColor = boxBorderColor;
 
 		// In case textCol is null, the text color will be set to the default
 		// color white.
 		//
-		if (textCol == null)
+		if (textColor == null)
 		{
-			this.textCol = Color.white;
+			this.textColor = Color.white;
 		}
 		else
 		{
-			this.textCol = textCol;
+			this.textColor = textColor;
 		}
+
+		this.boxFillColor = boxFillColor;
 	}
 
 	/**
@@ -145,22 +180,30 @@ public abstract class AbstractTextBox
 		{
 			g.setLineWidth(1);
 
-			// Draw the box. If it is null, it will be transparent.
+			// Draw the box perimeter. If it is null, it will be transparent.
 			//
-			if (boxCol == null)
+			if (getBoxBorderColor() != null)
 			{
+				g.setColor(getBoxBorderColor());
+
 				g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
 						getBoxHeight());
 			}
-			else
+
+			// Color the inside of the box. If it is null, it will be
+			// transparent.
+			//
+			if (getBoxFillColor() != null)
 			{
-				g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
-						getBoxHeight());
+				g.setColor(getBoxFillColor());
+
+				g.fillRect(getBoxPosX() + 1, getBoxPosY() + 1,
+						getBoxWidth() - 2, getBoxHeight() - 2);
 			}
 
 			// Draws the text after setting its color.
 			//
-			g.setColor(textCol);
+			g.setColor(getTextColor());
 
 			g.drawString(
 					getText(),
@@ -171,7 +214,8 @@ public abstract class AbstractTextBox
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("Null pointer error: " + toString());
+			System.err.println("NullPointerException " +
+					"TextBox Error\n" + toString());
 			System.exit(1);
 		}
 	}
@@ -179,7 +223,7 @@ public abstract class AbstractTextBox
 	@Override
 	public String toString()
 	{
-		return String.format("%s; %s", 
+		return String.format("Text: \"%s\"%n%s",
 				getText(),
 				super.toString());
 	}
@@ -238,24 +282,34 @@ public abstract class AbstractTextBox
 		this.boxHeight = boxHeight;
 	}
 
-	public Color getBoxCol()
+	public Color getBoxBorderColor()
 	{
-		return boxCol;
+		return boxBorderColor;
 	}
 
-	public void setBoxCol(Color boxCol)
+	public void setBoxBorderColor(Color boxBorderColor)
 	{
-		this.boxCol = boxCol;
+		this.boxBorderColor = boxBorderColor;
 	}
 
-	public Color getTextCol()
+	public Color getTextColor()
 	{
-		return textCol;
+		return textColor;
 	}
 
-	public void setTextCol(Color textCol)
+	public void setTextColor(Color textColor)
 	{
-		this.textCol = textCol;
+		this.textColor = textColor;
+	}
+
+	public Color getBoxFillColor()
+	{
+		return boxFillColor;
+	}
+
+	public void setBoxFillColor(Color boxFillColor)
+	{
+		this.boxFillColor = boxFillColor;
 	}
 
 	/**

@@ -3,22 +3,22 @@ package jdivers.textbox;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class TransparentClickTextBox extends ClickTextBox
+public class SpecialClickTextBox extends ClickTextBox
 {
-	public TransparentClickTextBox(final String text, final int boxPosX,
+	public SpecialClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
 	}
 
-	public TransparentClickTextBox(final String text, final int boxPosX,
+	public SpecialClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color textCol)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, textCol);
 	}
 
-	public TransparentClickTextBox(final String text, final int boxPosX,
+	public SpecialClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol, final Color textCol)
 	{
@@ -26,11 +26,12 @@ public class TransparentClickTextBox extends ClickTextBox
 
 		if (boxCol == null)
 		{
-			setBoxCol(new Color(255, 255, 255, 100));
+			setBoxBorderColor(new Color(255, 255, 255, 100));
 		}
 		else
 		{
-			getBoxCol().a = 100;
+			setBoxBorderColor(new Color(getBoxBorderColor().getRed(), getBoxBorderColor().getGreen(),
+					getBoxBorderColor().getBlue(), 200));
 		}
 	}
 
@@ -49,7 +50,7 @@ public class TransparentClickTextBox extends ClickTextBox
 			}
 			else
 			{
-				g.setColor(getTextCol());
+				g.setColor(getTextColor());
 			}
 
 			g.drawString(
@@ -63,7 +64,7 @@ public class TransparentClickTextBox extends ClickTextBox
 
 			// Draws the outline of the box.
 			//
-			g.setColor(getBoxCol());
+			g.setColor(getBoxBorderColor());
 
 			g.drawLine(getBoxPosX(), getBoxPosY(),
 					getBoxPosX() + getBoxWidth(),
@@ -73,7 +74,8 @@ public class TransparentClickTextBox extends ClickTextBox
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("Null error: " + toString());
+			System.err.println("NullPointerException " +
+					"TextBox Error\n" + toString());
 			System.exit(1);
 		}
 	}

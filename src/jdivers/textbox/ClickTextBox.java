@@ -18,10 +18,12 @@ import org.newdawn.slick.Graphics;
  * @author Artanis Margatroid
  *
  */
-public class ClickTextBox extends AbstractTextBox
+public class ClickTextBox extends BasicTextBox
 {
 	private ClickHandler clickHandler;
-	private boolean mouseOver;
+
+	private Color boxMouseOverColor, currentBoxFillColor;
+	private Color textMouseOverColor, currentTextColor;
 
 	/**
 	 * Constructs a text box that contains text inside an enclosed box. It
@@ -34,13 +36,13 @@ public class ClickTextBox extends AbstractTextBox
 	 *            the x-axis position of the left side of box
 	 * @param boxPosY
 	 *            the y-axis position of top side the box
-	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int)
+	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int)
 	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY)
 	{
-		this(text, boxPosX, boxPosY, AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
+		this(text, boxPosX, boxPosY, BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
 	/**
@@ -58,7 +60,7 @@ public class ClickTextBox extends AbstractTextBox
 	 *            the size of the box, extending to the right
 	 * @param boxHeight
 	 *            the size of the box, extending downward
-	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int,
+	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
 	 *      int, int)
 	 */
 	public ClickTextBox(final String text, final int boxPosX,
@@ -82,16 +84,16 @@ public class ClickTextBox extends AbstractTextBox
 	 *            the size of the box, extending to the right
 	 * @param boxHeight
 	 *            the size of the box, extending downward
-	 * @param boxCol
-	 *            the color of the inside area of the box; if <code>null</code>,
-	 *            it will be transparent
-	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int,
+	 * @param boxBorderColor
+	 *            the color of the outside area of the box; if <code>null</code>
+	 *            , it will be transparent
+	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
 	 *      int, int, Color)
 	 * 
 	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
-			final Color boxCol)
+			final Color boxBorderColor)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, null);
 	}
@@ -111,20 +113,86 @@ public class ClickTextBox extends AbstractTextBox
 	 *            the size of the box, extending to the right
 	 * @param boxHeight
 	 *            the size of the box, extending downward
-	 * @param boxCol
-	 *            the color of the inside area of the box; if <code>null</code>,
-	 *            it will be transparent
-	 * @param textCol
+	 * @param boxBorderColor
+	 *            the color of the outside area of the box; if <code>null</code>
+	 *            , it will be transparent
+	 * @param textColor
 	 *            the color of the text in the box; if <code>null</code>, it
 	 *            will be white
-	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int,
+	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
 	 *      int, int, Color, Color)
 	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
-			final Color boxCol, final Color textCol)
+			final Color boxBorderColor, final Color textColor)
 	{
-		super(text, boxPosX, boxPosY, boxWidth, boxHeight, boxCol, textCol);
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor, null,
+				null, textColor, null);
+	}
+
+	/**
+	 * Constructs a text box that contains text inside an enclosed box. It
+	 * changes color when the mouse hovers over it; and by clicking it, it will
+	 * perform an action.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 * @param boxBorderColor
+	 *            the color of the outside area of the box; if <code>null</code>
+	 *            , it will be transparent
+	 * @param boxFillColor
+	 *            the color of the inside area of the box; if <code>null</code>,
+	 *            it will be transparent
+	 * @param boxMouseOverColor
+	 *            the color of the inside area of the box when the mouse is
+	 *            hovering over it; if <code>null</code>, it will be transparent
+	 * @param textColor
+	 *            the color of the text in the box; if <code>null</code>, it
+	 *            will be white
+	 * @param textMouseOverColor
+	 *            the color of the text in the box when the mouse is hovering
+	 *            over it; if <code>null</code>, it will be white
+	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
+	 *      int, int, Color, Color, Color)
+	 */
+	public ClickTextBox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxBorderColor, final Color boxFillColor,
+			final Color boxMouseOverColor, final Color textColor,
+			final Color textMouseOverColor)
+	{
+		super(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor,
+				boxFillColor, textColor);
+
+		currentBoxFillColor = boxBorderColor;
+
+		if (boxMouseOverColor == null)
+		{
+			this.boxMouseOverColor = Color.cyan;
+		}
+		else
+		{
+			this.boxMouseOverColor = boxMouseOverColor;
+		}
+
+		if (textMouseOverColor == null)
+		{
+			this.textMouseOverColor = Color.yellow;
+		}
+		else
+		{
+			this.textMouseOverColor = textMouseOverColor;
+		}
+
+		this.currentBoxFillColor = getBoxFillColor();
 	}
 
 	@Override
@@ -134,25 +202,30 @@ public class ClickTextBox extends AbstractTextBox
 		{
 			g.setLineWidth(1);
 
-			if (getBoxCol() == null)
+			// Draw the box perimeter. If it is null, it will be transparent.
+			//
+			if (getBoxBorderColor() != null)
 			{
+				g.setColor(getBoxBorderColor());
+
 				g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
 						getBoxHeight());
 			}
-			else
-			{
-				if (mouseOver)
-				{
-					g.setColor(Color.cyan);
-				}
-				else
-				{
-					g.setColor(getBoxCol());
-				}
 
-				g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
-						getBoxHeight());
+			// Color the inside of the box. If it is null, it will be
+			// transparent.
+			//
+			if (getCurrentBoxFillColor() != null)
+			{
+				g.setColor(getCurrentBoxFillColor());
+
+				g.fillRect(getBoxPosX() + 1, getBoxPosY() + 1,
+						getBoxWidth() - 2, getBoxHeight() - 2);
 			}
+
+			// Draws the text after setting its color.
+			//
+			g.setColor(getCurrentTextColor());
 
 			g.drawString(
 					getText(),
@@ -160,28 +233,43 @@ public class ClickTextBox extends AbstractTextBox
 							getBoxWidth()),
 					getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
 							getBoxHeight()));
-
-			g.setColor(Color.black);
-			g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
-					getBoxHeight());
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("Null error: " + toString());
+			System.err.println("NullPointerException " +
+					"TextBox Error\n" + toString());
 			System.exit(1);
 		}
 	}
 
 	public void update()
 	{
-		mouseOver = mouseInBox();
+		if (mouseInBox())
+		{
+			currentBoxFillColor = boxMouseOverColor;
+			currentTextColor = textMouseOverColor;
+		}
+		else
+		{
+			currentBoxFillColor = getBoxFillColor();
+			currentTextColor = getTextColor();
+		}
 	}
 
 	public void mouseReleased()
 	{
-		if (isMouseOver())
+		try
 		{
-			clickHandler.onClick();
+			if (mouseInBox())
+			{
+				clickHandler.onClick();
+			}
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("NullPointerException " +
+					"TextBox Error\n" + toString());
+			System.exit(1);
 		}
 	}
 
@@ -209,17 +297,57 @@ public class ClickTextBox extends AbstractTextBox
 		return (MouseFix.getMouseY() > getBoxPosY() && MouseFix.getMouseY() < getBoxPosY() + getBoxHeight());
 	}
 
-	//
-	// Getters and Setters
-	//
-
-	public boolean isMouseOver()
+	public ClickHandler getClickHandler()
 	{
-		return mouseOver;
+		return clickHandler;
 	}
 
-	public void setMouseOver(boolean mouseOver)
+	public void setClickHandler(ClickHandler clickHandler)
 	{
-		this.mouseOver = mouseOver;
+		this.clickHandler = clickHandler;
+	}
+
+	//
+	// Getter and Setters
+	//
+
+	public Color getBoxMouseOverColor()
+	{
+		return boxMouseOverColor;
+	}
+
+	public void setBoxMouseOverColor(Color boxMouseOverColor)
+	{
+		this.boxMouseOverColor = boxMouseOverColor;
+	}
+
+	public Color getCurrentBoxFillColor()
+	{
+		return currentBoxFillColor;
+	}
+
+	public void setCurrentBoxFillColor(Color currentBoxFillColor)
+	{
+		this.currentBoxFillColor = currentBoxFillColor;
+	}
+
+	public Color getTextMouseOverColor()
+	{
+		return textMouseOverColor;
+	}
+
+	public void setTextMouseOverColor(Color textMouseOverColor)
+	{
+		this.textMouseOverColor = textMouseOverColor;
+	}
+
+	public Color getCurrentTextColor()
+	{
+		return currentTextColor;
+	}
+
+	public void setCurrentTextColor(Color currentTextColor)
+	{
+		this.currentTextColor = currentTextColor;
 	}
 };

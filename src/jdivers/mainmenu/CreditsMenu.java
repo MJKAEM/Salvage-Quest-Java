@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.AbstractMenu;
-import jdivers.textbox.AbstractTextBox;
+import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextBox;
 
@@ -19,10 +19,10 @@ public class CreditsMenu extends AbstractMenu
 		super();
 
 		exitBox = new ClickTextBox("Exit",
-				Global.halfWidth - AbstractTextBox.DEFAULT_TEXTBOX_HALF_WIDTH,
+				Global.halfWidth - BasicTextBox.DEFAULT_TEXTBOX_HALF_WIDTH,
 				Global.quarterHeight,
-				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
 	@Override

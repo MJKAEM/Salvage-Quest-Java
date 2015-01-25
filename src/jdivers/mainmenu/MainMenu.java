@@ -5,10 +5,10 @@ import jdivers.Global;
 import jdivers.JDivers;
 import jdivers.MainMenuState;
 import jdivers.AbstractMenu;
-import jdivers.textbox.AbstractTextBox;
+import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextBox;
-import jdivers.textbox.TransparentClickTextBox;
+import jdivers.textbox.SpecialClickTextBox;
 
 import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
@@ -28,29 +28,29 @@ public class MainMenu extends AbstractMenu
 	{
 		super();
 		
-		final int widthScreenPlacement = Global.width - AbstractTextBox.DEFAULT_TEXTBOX_WIDTH;
+		final int widthScreenPlacement = Global.width - BasicTextBox.DEFAULT_TEXTBOX_WIDTH;
 		
 		// Constructs the individual boxes and sets their positions.
 		//
-		playBox = new TransparentClickTextBox(
+		playBox = new SpecialClickTextBox(
 				"Play",
 				0,
 				Global.halfHeight,
-				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 
-		optionsBox = new TransparentClickTextBox(
+		optionsBox = new SpecialClickTextBox(
 				"Options",
 				widthScreenPlacement,
 				Global.halfHeight,
-				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 
-		exitBox = new TransparentClickTextBox("Exit",
+		exitBox = new SpecialClickTextBox("Exit",
 				0,
 				Global.threeFourthHeight,
-				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 
 		exitBox.setListener(new ClickHandler()
 		{

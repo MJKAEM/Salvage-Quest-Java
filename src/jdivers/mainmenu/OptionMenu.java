@@ -7,10 +7,10 @@ import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.AbstractMenu;
-import jdivers.textbox.AbstractTextBox;
+import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextBox;
-import jdivers.textbox.TransparentClickTextBox;
+import jdivers.textbox.SpecialClickTextBox;
 
 public class OptionMenu extends AbstractMenu
 {
@@ -22,11 +22,11 @@ public class OptionMenu extends AbstractMenu
 	{
 		super();
 
-		exitBox = new TransparentClickTextBox("Exit",
+		exitBox = new SpecialClickTextBox("Exit",
 				0,
 				Global.threeFourthHeight,
-				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
 	@Override
