@@ -3,7 +3,6 @@ package jdivers;
 public class Global
 {
 	public static final String GAMENAME = "Divers 0.1A";
-	public static final String FONT = "Times New Roman";
 
 	public static final int menuStateValue = 0;
 	public static final int playStateValue = 1;

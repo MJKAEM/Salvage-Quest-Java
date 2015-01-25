@@ -2,7 +2,7 @@ package jdivers.textbox;
 
 import org.newdawn.slick.Color;
 
-public class FilledClickTextBox extends ClickTextBox
+public class FilledClickTextBox extends TransparentClickTextBox
 {
 	public FilledClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,

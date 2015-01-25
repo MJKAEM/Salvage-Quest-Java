@@ -6,6 +6,14 @@ import org.newdawn.slick.Graphics;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+/**
+ * A text box that contains text inside of a box. The box can be either
+ * transparent or colored, depending on the input in the constructor. The text
+ * box can be rendered onto the screen.
+ * 
+ * @author Artanis Margatroid
+ *
+ */
 public abstract class AbstractTextBox
 {
 	public static final int DEFAULT_TEXTBOX_HEIGHT = 50;
@@ -20,10 +28,14 @@ public abstract class AbstractTextBox
 	private int boxWidth, boxHeight;
 
 	/**
-	 * Constructs a text box 
+	 * Constructs a text box that contains text inside an enclosed box.
+	 * 
 	 * @param text
+	 *            the text to display in the box
 	 * @param boxPosX
+	 *            the x-axis position of the left side of box
 	 * @param boxPosY
+	 *            the y-axis position of top side the box
 	 */
 	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY)
@@ -32,12 +44,43 @@ public abstract class AbstractTextBox
 				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
+	/**
+	 * Constructs a text box that contains text inside an enclosed box.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 */
 	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
 	}
 
+	/**
+	 * Constructs a text box that contains text inside an enclosed box.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 * @param boxCol
+	 *            the color of the inside area of the box; if <code>null</code>,
+	 *            it will be transparent
+	 */
 	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol)
@@ -45,6 +88,26 @@ public abstract class AbstractTextBox
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxCol, null);
 	}
 
+	/**
+	 * Constructs a text box that contains text inside an enclosed box.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 * @param boxCol
+	 *            the color of the inside area of the box; if <code>null</code>,
+	 *            it will be transparent
+	 * @param textCol
+	 *            the color of the text in the box; if <code>null</code>, it
+	 *            will be white
+	 */
 	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol, final Color textCol)
@@ -54,16 +117,12 @@ public abstract class AbstractTextBox
 		this.boxPosY = boxPosY;
 		this.boxWidth = boxWidth;
 		this.boxHeight = boxHeight;
+		this.boxCol = boxCol;
 
-		if (boxCol == null)
-		{
-			this.boxCol = Color.white;
-		}
-		else
-		{
-			this.boxCol = boxCol;
-		}
-		if(textCol == null)
+		// In case textCol is null, the text color will be set to the default
+		// color white.
+		//
+		if (textCol == null)
 		{
 			this.textCol = Color.white;
 		}
@@ -74,40 +133,55 @@ public abstract class AbstractTextBox
 	}
 
 	/**
-	 * Displays the text box, which is text encapsulated by a box.
+	 * Displays text inside of a box, which is either transparent or filled
+	 * depending on the input of the constructor.
 	 * 
 	 * @param g
 	 *            Graphics
 	 */
 	public void show(final Graphics g)
 	{
-		g.setLineWidth(1);
-		if (boxCol == null)
+		try
 		{
-			g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
-					getBoxHeight());
-		}
-		else
-		{
-			g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
-					getBoxHeight());
-		}
+			g.setLineWidth(1);
 
-		if (textCol == null)
-		{
-			g.setColor(Color.white);
-		}
-		else
-		{
+			// Draw the box. If it is null, it will be transparent.
+			//
+			if (boxCol == null)
+			{
+				g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+						getBoxHeight());
+			}
+			else
+			{
+				g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+						getBoxHeight());
+			}
+
+			// Draws the text after setting its color.
+			//
 			g.setColor(textCol);
-		}
 
-		g.drawString(
+			g.drawString(
+					getText(),
+					getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
+							getBoxWidth()),
+					getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
+							getBoxHeight()));
+		}
+		catch (NullPointerException e)
+		{
+			System.out.println("Null pointer error: " + toString());
+			System.exit(1);
+		}
+	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("%s; %s", 
 				getText(),
-				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
-						getBoxWidth()),
-				getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
-						getBoxHeight()));
+				super.toString());
 	}
 
 	//
@@ -185,15 +259,15 @@ public abstract class AbstractTextBox
 	}
 
 	/**
-	 * Returns an integer that properly places text in its proper x-position in
-	 * a text box.
+	 * Returns an integer that properly places text in its proper x-axis
+	 * position in a text box.
 	 * 
 	 * @param font
 	 *            font used in the text
 	 * @param text
 	 *            text written out in the box
 	 * @param boxPosX
-	 *            x-position of the box
+	 *            x-axis position of the box
 	 * @param boxWidth
 	 *            width of the box
 	 * @return an integer
@@ -234,6 +308,9 @@ public abstract class AbstractTextBox
 		return centerTextAndBox;
 	}
 
+	/**
+	 * Unfinished.
+	 */
 	public static int getStartTextYTextBox(final Font font, final String text,
 			final int boxPosX, final int boxPosY, final int boxWidth,
 			final int boxHeight)

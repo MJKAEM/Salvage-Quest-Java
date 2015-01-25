@@ -23,7 +23,6 @@ public class MainMenu extends AbstractMenu
 	private static AngelCodeFont titleFont;
 
 	private ClickTextBox playBox, optionsBox, exitBox;
-	private ClickHandler playHandler, optionsHandler;
 
 	public MainMenu()
 	{

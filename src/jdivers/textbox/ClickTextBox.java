@@ -7,7 +7,13 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 /**
- * A text box that displays a box and text. It can be clicked.
+ * A text box that contains text inside of a box. The box can be either
+ * transparent or colored, depending on the input in the constructor. The text
+ * box can be rendered onto the screen.<br>
+ * <br>
+ * When the mouse hovers over it, it will change into a mouse over state, which
+ * will change the color of the box. Clicking the box will perform an action
+ * based on the click handler.
  * 
  * @author Artanis Margatroid
  *
@@ -17,6 +23,19 @@ public class ClickTextBox extends AbstractTextBox
 	private ClickHandler clickHandler;
 	private boolean mouseOver;
 
+	/**
+	 * Constructs a text box that contains text inside an enclosed box. It
+	 * changes color when the mouse hovers over it; and by clicking it, it will
+	 * perform an action.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int)
+	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY)
 	{
@@ -24,12 +43,52 @@ public class ClickTextBox extends AbstractTextBox
 				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
+	/**
+	 * Constructs a text box that contains text inside an enclosed box. It
+	 * changes color when the mouse hovers over it; and by clicking it, it will
+	 * perform an action.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int,
+	 *      int, int)
+	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
 	}
 
+	/**
+	 * Constructs a text box that contains text inside an enclosed box. It
+	 * changes color when the mouse hovers over it; and by clicking it, it will
+	 * perform an action.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 * @param boxCol
+	 *            the color of the inside area of the box; if <code>null</code>,
+	 *            it will be transparent
+	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int,
+	 *      int, int, Color)
+	 * 
+	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol)
@@ -37,6 +96,30 @@ public class ClickTextBox extends AbstractTextBox
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, null);
 	}
 
+	/**
+	 * Constructs a text box that contains text inside an enclosed box. It
+	 * changes color when the mouse hovers over it; and by clicking it, it will
+	 * perform an action.
+	 * 
+	 * @param text
+	 *            the text to display in the box
+	 * @param boxPosX
+	 *            the x-axis position of the left side of box
+	 * @param boxPosY
+	 *            the y-axis position of top side the box
+	 * @param boxWidth
+	 *            the size of the box, extending to the right
+	 * @param boxHeight
+	 *            the size of the box, extending downward
+	 * @param boxCol
+	 *            the color of the inside area of the box; if <code>null</code>,
+	 *            it will be transparent
+	 * @param textCol
+	 *            the color of the text in the box; if <code>null</code>, it
+	 *            will be white
+	 * @see jdivers.textbox.AbstractTextBox#AbstractTextBox(String, int, int,
+	 *      int, int, Color, Color)
+	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol, final Color textCol)
@@ -47,46 +130,46 @@ public class ClickTextBox extends AbstractTextBox
 	@Override
 	public void show(final Graphics g)
 	{
-		g.setLineWidth(1);
+		try
+		{
+			g.setLineWidth(1);
 
-		if (getBoxCol() == null)
-		{
-			g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
-					getBoxHeight());
-		}
-		else
-		{
-			if (mouseOver)
+			if (getBoxCol() == null)
 			{
-				g.setColor(Color.cyan);
+				g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+						getBoxHeight());
 			}
 			else
 			{
-				g.setColor(getBoxCol());
+				if (mouseOver)
+				{
+					g.setColor(Color.cyan);
+				}
+				else
+				{
+					g.setColor(getBoxCol());
+				}
+
+				g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+						getBoxHeight());
 			}
 
-			g.fillRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
+			g.drawString(
+					getText(),
+					getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
+							getBoxWidth()),
+					getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
+							getBoxHeight()));
+
+			g.setColor(Color.black);
+			g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
 					getBoxHeight());
 		}
-
-		if (getTextCol() == null)
+		catch (NullPointerException e)
 		{
-			g.setColor(Color.white);
+			System.out.println("Null error: " + toString());
+			System.exit(1);
 		}
-		else
-		{
-			g.setColor(getTextCol());
-		}
-
-		g.drawString(
-				getText(),
-				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
-						getBoxWidth()),
-				getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
-						getBoxHeight()));
-
-		g.setColor(Color.black);
-		g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(), getBoxHeight());
 	}
 
 	public void update()

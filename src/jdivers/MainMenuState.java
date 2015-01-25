@@ -68,7 +68,6 @@ public class MainMenuState extends BasicGameState
 
 		mainMenu.setListener(switchPlayState, 0);
 		mainMenu.setListener(switchOptionsMenu, 1);
-
 		optionMenu.setListener(switchMainMenu, -1);
 	}
 
@@ -78,6 +77,7 @@ public class MainMenuState extends BasicGameState
 	{
 		g.setFont(textboxFont);
 		currentMenu.show(g);
+		g.setFont(copyrightFont);
 		showAuthor(g);
 	}
 
@@ -111,7 +111,6 @@ public class MainMenuState extends BasicGameState
 	{
 		final String copyright = "\u00A9Artanis Margatroid 2015";
 
-		g.setFont(copyrightFont);
 		g.setColor(Color.black);
 		g.drawString(copyright,
 				Global.width - g.getFont().getWidth(copyright),

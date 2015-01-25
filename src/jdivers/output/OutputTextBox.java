@@ -2,11 +2,9 @@ package jdivers.output;
 
 import java.util.LinkedList;
 
-import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.textbox.AbstractTextBox;
 
-import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 

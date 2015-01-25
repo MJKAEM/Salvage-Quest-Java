@@ -41,30 +41,40 @@ public class TransparentClickTextBox extends ClickTextBox
 	@Override
 	public void show(final Graphics g)
 	{
-		if (mouseInBox())
+		try
 		{
-			g.setColor(Color.yellow);
+			if (mouseInBox())
+			{
+				g.setColor(Color.yellow);
+			}
+			else
+			{
+				g.setColor(getTextCol());
+			}
+
+			g.drawString(
+					getText(),
+					getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
+							getBoxWidth()),
+					getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
+							getBoxHeight()));
+
+			g.setLineWidth(2);
+
+			// Draws the outline of the box.
+			//
+			g.setColor(getBoxCol());
+
+			g.drawLine(getBoxPosX(), getBoxPosY(),
+					getBoxPosX() + getBoxWidth(),
+					getBoxPosY());
+			g.drawLine(getBoxPosX(), getBoxPosY() + getBoxHeight(),
+					getBoxPosX() + getBoxWidth(), getBoxPosY() + getBoxHeight());
 		}
-		else
+		catch (NullPointerException e)
 		{
-			g.setColor(getTextCol());
+			System.out.println("Null error: " + toString());
+			System.exit(1);
 		}
-
-		g.drawString(
-				getText(),
-				getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
-						getBoxWidth()),
-				getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
-						getBoxHeight()));
-
-		g.setLineWidth(2);
-
-		g.setColor(getBoxCol());
-
-		g.drawLine(getBoxPosX(), getBoxPosY(), getBoxPosX() + getBoxWidth(),
-				getBoxPosY());
-		g.drawLine(getBoxPosX(), getBoxPosY() + getBoxHeight(),
-				getBoxPosX() + getBoxWidth(), getBoxPosY() + getBoxHeight());
-
 	}
 };
