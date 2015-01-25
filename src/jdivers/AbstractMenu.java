@@ -25,6 +25,15 @@ public abstract class AbstractMenu
 	 */
 	public abstract void mouseReleased();
 
+	/**
+	 * Sets the listener for a text box.<br>
+	 * <br>
+	 * 
+	 * @param clickHandler
+	 *            the clickHandler used for the text box upon clicking
+	 * @param index
+	 *            index of box to modify
+	 */
 	public abstract void setListener(ClickHandler clickHandler, int index);
 
 	protected void showBackground(Graphics g, Image backgroundImage)

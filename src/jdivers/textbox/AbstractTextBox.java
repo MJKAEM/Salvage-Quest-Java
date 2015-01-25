@@ -6,7 +6,7 @@ import org.newdawn.slick.Graphics;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public abstract class AbstractTextbox
+public abstract class AbstractTextBox
 {
 	public static final int DEFAULT_TEXTBOX_HEIGHT = 50;
 	public static final int DEFAULT_TEXTBOX_WIDTH = 100;
@@ -19,27 +19,33 @@ public abstract class AbstractTextbox
 	private int boxPosX, boxPosY;
 	private int boxWidth, boxHeight;
 
-	protected AbstractTextbox(final String text, final int boxPosX,
+	/**
+	 * Constructs a text box 
+	 * @param text
+	 * @param boxPosX
+	 * @param boxPosY
+	 */
+	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY)
 	{
-		this(text, boxPosX, boxPosY, AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+		this(text, boxPosX, boxPosY, AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
-	protected AbstractTextbox(final String text, final int boxPosX,
+	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
 	}
 
-	protected AbstractTextbox(final String text, final int boxPosX,
+	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxCol, null);
 	}
 
-	protected AbstractTextbox(final String text, final int boxPosX,
+	protected AbstractTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol, final Color textCol)
 	{

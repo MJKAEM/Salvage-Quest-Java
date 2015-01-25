@@ -3,22 +3,22 @@ package jdivers.textbox;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class TransparentClickTextbox extends ClickTextbox
+public class TransparentClickTextBox extends ClickTextBox
 {
-	public TransparentClickTextbox(final String text, final int boxPosX,
+	public TransparentClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
 	}
 
-	public TransparentClickTextbox(final String text, final int boxPosX,
+	public TransparentClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color textCol)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, textCol);
 	}
 
-	public TransparentClickTextbox(final String text, final int boxPosX,
+	public TransparentClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol, final Color textCol)
 	{

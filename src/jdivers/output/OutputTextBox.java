@@ -4,17 +4,17 @@ import java.util.LinkedList;
 
 import jdivers.ContentLoader;
 import jdivers.Global;
-import jdivers.textbox.AbstractTextbox;
+import jdivers.textbox.AbstractTextBox;
 
 import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class OutputTextbox extends AbstractTextbox
+public class OutputTextBox extends AbstractTextBox
 {
 	private LinkedList<String> stringList;
 
-	public OutputTextbox()
+	public OutputTextBox()
 	{
 		super(null,
 				20,

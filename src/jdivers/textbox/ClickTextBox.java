@@ -12,32 +12,32 @@ import org.newdawn.slick.Graphics;
  * @author Artanis Margatroid
  *
  */
-public class ClickTextbox extends AbstractTextbox
+public class ClickTextBox extends AbstractTextBox
 {
 	private ClickHandler clickHandler;
 	private boolean mouseOver;
 
-	public ClickTextbox(final String text, final int boxPosX,
+	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY)
 	{
-		this(text, boxPosX, boxPosY, AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+		this(text, boxPosX, boxPosY, AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
-	public ClickTextbox(final String text, final int boxPosX,
+	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
 	}
 
-	public ClickTextbox(final String text, final int boxPosX,
+	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol)
 	{
 		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, null);
 	}
 
-	public ClickTextbox(final String text, final int boxPosX,
+	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
 			final Color boxCol, final Color textCol)
 	{

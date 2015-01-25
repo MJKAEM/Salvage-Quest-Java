@@ -6,23 +6,23 @@ import org.newdawn.slick.Image;
 
 import jdivers.ContentLoader;
 import jdivers.AbstractMenu;
-import jdivers.textbox.AbstractTextbox;
+import jdivers.textbox.AbstractTextBox;
 import jdivers.textbox.ClickHandler;
-import jdivers.textbox.TransparentClickTextbox;
+import jdivers.textbox.TransparentClickTextBox;
 
 public class MainHubMenu extends AbstractMenu
 {
 	private static Image screenImage = ContentLoader.backgroundImages[0];
 
-	private TransparentClickTextbox shopBox;
+	private TransparentClickTextBox shopBox;
 
 	public MainHubMenu()
 	{
-		shopBox = new TransparentClickTextbox("Shop",
+		shopBox = new TransparentClickTextBox("Shop",
 				0,
 				1,
-				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT, 
+				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT, 
 				Color.gray, 
 				null);
 	}

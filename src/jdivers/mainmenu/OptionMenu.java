@@ -7,26 +7,26 @@ import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.MainMenuState;
 import jdivers.AbstractMenu;
-import jdivers.textbox.AbstractTextbox;
+import jdivers.textbox.AbstractTextBox;
 import jdivers.textbox.ClickHandler;
-import jdivers.textbox.ClickTextbox;
-import jdivers.textbox.TransparentClickTextbox;
+import jdivers.textbox.ClickTextBox;
+import jdivers.textbox.TransparentClickTextBox;
 
 public class OptionMenu extends AbstractMenu
 {
 	private static Image screenImage = ContentLoader.backgroundImages[1];
 
-	private ClickTextbox exitBox;
+	private ClickTextBox exitBox;
 
 	public OptionMenu()
 	{
 		super();
 
-		exitBox = new TransparentClickTextbox("Exit",
+		exitBox = new TransparentClickTextBox("Exit",
 				0,
 				Global.threeFourthHeight,
-				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 	}
 
 	@Override

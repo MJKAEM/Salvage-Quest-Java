@@ -2,12 +2,13 @@ package jdivers.mainmenu;
 
 import jdivers.ContentLoader;
 import jdivers.Global;
+import jdivers.JDivers;
 import jdivers.MainMenuState;
 import jdivers.AbstractMenu;
-import jdivers.textbox.AbstractTextbox;
+import jdivers.textbox.AbstractTextBox;
 import jdivers.textbox.ClickHandler;
-import jdivers.textbox.ClickTextbox;
-import jdivers.textbox.TransparentClickTextbox;
+import jdivers.textbox.ClickTextBox;
+import jdivers.textbox.TransparentClickTextBox;
 
 import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
@@ -21,34 +22,36 @@ public class MainMenu extends AbstractMenu
 
 	private static AngelCodeFont titleFont;
 
-	private ClickTextbox playBox, optionsBox, exitBox;
+	private ClickTextBox playBox, optionsBox, exitBox;
 	private ClickHandler playHandler, optionsHandler;
 
 	public MainMenu()
 	{
 		super();
-
-		playBox = new TransparentClickTextbox(
+		
+		final int widthScreenPlacement = Global.width - AbstractTextBox.DEFAULT_TEXTBOX_WIDTH;
+		
+		// Constructs the individual boxes and sets their positions.
+		//
+		playBox = new TransparentClickTextBox(
 				"Play",
 				0,
 				Global.halfHeight,
-				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 
-		final int widthScreenPlacement = Global.width - AbstractTextbox.DEFAULT_TEXTBOX_WIDTH;
-
-		optionsBox = new TransparentClickTextbox(
+		optionsBox = new TransparentClickTextBox(
 				"Options",
 				widthScreenPlacement,
 				Global.halfHeight,
-				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 
-		exitBox = new TransparentClickTextbox("Exit",
+		exitBox = new TransparentClickTextBox("Exit",
 				0,
 				Global.threeFourthHeight,
-				AbstractTextbox.DEFAULT_TEXTBOX_WIDTH,
-				AbstractTextbox.DEFAULT_TEXTBOX_HEIGHT);
+				AbstractTextBox.DEFAULT_TEXTBOX_WIDTH,
+				AbstractTextBox.DEFAULT_TEXTBOX_HEIGHT);
 
 		exitBox.setListener(new ClickHandler()
 		{
@@ -102,9 +105,7 @@ public class MainMenu extends AbstractMenu
 	}
 
 	/**
-	 * Sets the listener for a text box.<br>
-	 * <br>
-	 * <b> 0 = playBox<br>
+	 * {@inheritDoc} <b> 0 = playBox<br>
 	 * 1 = optionsBox</b>
 	 * 
 	 * @param clickHandler

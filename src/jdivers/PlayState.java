@@ -1,6 +1,6 @@
 package jdivers;
 
-import jdivers.output.OutputTextbox;
+import jdivers.output.OutputTextBox;
 import jdivers.playmenu.MainHubMenu;
 
 import org.newdawn.slick.AngelCodeFont;
@@ -14,7 +14,7 @@ public class PlayState extends BasicGameState
 {
 	private AngelCodeFont textboxFont, outputTextFont;
 	
-	public static final OutputTextbox outputTextbox = new OutputTextbox();
+	public static final OutputTextBox outputTextbox = new OutputTextBox();
 	
 	private MainHubMenu mainHubMenu;
 
