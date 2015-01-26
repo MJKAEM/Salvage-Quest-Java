@@ -27,9 +27,10 @@ public class MainMenu extends AbstractMenu
 	public MainMenu()
 	{
 		super();
-		
+
 		final int widthScreenPlacement = Global.width - BasicTextBox.DEFAULT_TEXTBOX_WIDTH;
-		
+		final Color boxBorderColor = new Color(255, 255, 255, 100);
+
 		// Constructs the individual boxes and sets their positions.
 		//
 		playBox = new SpecialClickTextBox(
@@ -37,20 +38,35 @@ public class MainMenu extends AbstractMenu
 				0,
 				Global.halfHeight,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
-				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
+				boxBorderColor,
+				null,
+				null,
+				Color.white,
+				Color.yellow);
 
 		optionsBox = new SpecialClickTextBox(
 				"Options",
 				widthScreenPlacement,
 				Global.halfHeight,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
-				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
+				boxBorderColor,
+				null,
+				null,
+				Color.white,
+				Color.yellow);
 
 		exitBox = new SpecialClickTextBox("Exit",
 				0,
 				Global.threeFourthHeight,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
-				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
+				boxBorderColor,
+				null,
+				null,
+				Color.white,
+				Color.yellow);
 
 		exitBox.setClickHandler(new ClickHandler()
 		{

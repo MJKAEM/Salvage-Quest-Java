@@ -10,10 +10,7 @@ public class SpecialClickTextBox extends ClickTextBox
 	public SpecialClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
-		this(text,
-				boxPosX, boxPosY, boxWidth, boxHeight,
-				Color.black,
-				new Color(255, 255, 255, 100),
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, Color.black, null,
 				Color.white);
 	}
 
@@ -22,31 +19,30 @@ public class SpecialClickTextBox extends ClickTextBox
 			final Color boxBorderColor, final Color boxFillColor,
 			final Color textColor)
 	{
-		super(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor,
-				boxFillColor, textColor);
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor,
+				boxFillColor, boxFillColor, textColor, Color.yellow);
+	}
 
-		setBoxBorderColor(new Color(getBoxBorderColor().getRed(),
-				getBoxBorderColor().getGreen(),
-				getBoxBorderColor().getBlue(), 200));
+	public SpecialClickTextBox(final String text, final int boxPosX,
+			final int boxPosY, final int boxWidth, final int boxHeight,
+			final Color boxBorderColor, final Color boxFillColor,
+			final Color boxMouseOverColor, final Color textColor,
+			final Color textMouseOverColor)
+	{
+		super(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor,
+				boxFillColor, boxMouseOverColor, textColor, textMouseOverColor);
 	}
 
 	/**
 	 * Displays text in two partially transparent horizontal lines. The text
-	 * changes to yellow.
+	 * changes when the mouse hovers over it.
 	 */
 	@Override
 	public void show(final Graphics g)
 	{
 		try
 		{
-			if (mouseInBox())
-			{
-				g.setColor(getTextMouseOverColor());
-			}
-			else
-			{
-				g.setColor(getTextColor());
-			}
+			g.setColor(getCurrentTextColor());
 		}
 		catch (NullPointerException e)
 		{
@@ -54,31 +50,60 @@ public class SpecialClickTextBox extends ClickTextBox
 					"Graphics input is null!%n%s", toString());
 			System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
 		}
-		try
+
+		if (getText() != null)
 		{
+			try
+			{
+				g.setColor(getCurrentTextColor());
+			}
+			catch (NullPointerException e)
+			{
+				System.err.printf("%nNullPointerException! " +
+						"textColor is null!%n%s", toString());
+				System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
+			}
 
-			g.drawString(getText(),
-					getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
-							getBoxWidth()),
-					getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
-							getBoxHeight()));
+			try
+			{
+				g.drawString(
+						getText(),
+						getStartTextXTextBox(g.getFont(), getText(),
+								getBoxPosX(),
+								getBoxWidth()),
+						getStartTextYTextBox(g.getFont(), getText(),
+								getBoxPosY(),
+								getBoxHeight()));
+			}
+			catch (NullPointerException e)
+			{
+				System.err.printf("%nNullPointerException! " +
+						"The font is null!%n%s", toString());
+				System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
+			}
+		}
 
+		// Draws the outline of the box.
+		//
+		if (getBoxBorderColor() != null)
+		{
 			g.setLineWidth(2);
 
-			// Draws the outline of the box.
-			//
 			g.setColor(getBoxBorderColor());
 
 			g.drawLine(getBoxPosX(), getBoxPosY(),
 					getBoxPosX() + getBoxWidth(), getBoxPosY());
 			g.drawLine(getBoxPosX(), getBoxPosY() + getBoxHeight(),
-					getBoxPosX() + getBoxWidth(), getBoxPosY() + getBoxHeight());
+					getBoxPosX() + getBoxWidth(),
+					getBoxPosY() + getBoxHeight());
 		}
-		catch (NullPointerException e)
+
+		if (getCurrentBoxFillColor() != null)
 		{
-			System.err.println("NullPointerException " +
-					"TextBox Error\n" + toString());
-			System.exit(1);
+			g.setColor(getCurrentBoxFillColor());
+
+			g.fillRect(getBoxPosX() + 1, getBoxPosY() + 2,
+					getBoxWidth() - 1, getBoxHeight() - 2);
 		}
 	}
 };

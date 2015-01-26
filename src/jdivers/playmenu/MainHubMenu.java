@@ -21,7 +21,7 @@ public class MainHubMenu extends AbstractMenu
 	{
 		shopBox = new ClickTextBox("Shop",
 				0,
-				1,
+				0,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
 				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
 				Color.darkGray,
