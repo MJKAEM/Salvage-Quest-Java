@@ -2,6 +2,11 @@ package jdivers;
 
 public class Global
 {
+	// List of error exit code constants.
+	//
+	public static final int NULL_POINTER_EXCEPTION_CODE = 3;
+	public static final int ILLEGAL_FORMAT_EXCEPTION_CODE = 43;
+
 	public static final String GAMENAME = "Divers 0.1A";
 
 	public static final int menuStateValue = 0;

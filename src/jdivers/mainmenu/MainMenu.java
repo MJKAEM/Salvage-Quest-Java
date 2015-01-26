@@ -52,7 +52,7 @@ public class MainMenu extends AbstractMenu
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
 				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
 
-		exitBox.setListener(new ClickHandler()
+		exitBox.setClickHandler(new ClickHandler()
 		{
 			@Override
 			public void onClick()
@@ -117,11 +117,11 @@ public class MainMenu extends AbstractMenu
 		switch (index)
 		{
 			case 0:
-				playBox.setListener(clickHandler);
+				playBox.setClickHandler(clickHandler);
 				break;
 
 			case 1:
-				optionsBox.setListener(clickHandler);
+				optionsBox.setClickHandler(clickHandler);
 				break;
 
 			default:

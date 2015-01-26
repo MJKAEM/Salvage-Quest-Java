@@ -1,5 +1,8 @@
 package jdivers.textbox;
 
+import java.util.IllegalFormatException;
+
+import jdivers.Global;
 import jdivers.MouseFix;
 
 import org.lwjgl.input.Mouse;
@@ -27,27 +30,7 @@ public class ClickTextBox extends BasicTextBox
 
 	/**
 	 * Constructs a text box that contains text inside an enclosed box. It
-	 * changes color when the mouse hovers over it; and by clicking it, it will
-	 * perform an action.
-	 * 
-	 * @param text
-	 *            the text to display in the box
-	 * @param boxPosX
-	 *            the x-axis position of the left side of box
-	 * @param boxPosY
-	 *            the y-axis position of top side the box
-	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int)
-	 */
-	public ClickTextBox(final String text, final int boxPosX,
-			final int boxPosY)
-	{
-		this(text, boxPosX, boxPosY, BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
-				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
-	}
-
-	/**
-	 * Constructs a text box that contains text inside an enclosed box. It
-	 * changes color when the mouse hovers over it; and by clicking it, it will
+	 * changes color when the mouse hovers over it, and by clicking it, it will
 	 * perform an action.
 	 * 
 	 * @param text
@@ -60,13 +43,14 @@ public class ClickTextBox extends BasicTextBox
 	 *            the size of the box, extending to the right
 	 * @param boxHeight
 	 *            the size of the box, extending downward
-	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
-	 *      int, int)
+	 * @see jdivers.textbox.BasicTextBox#BasicTextBox(String, int, int, int,
+	 *      int)
 	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight)
 	{
-		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null);
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, Color.black, null,
+				Color.white);
 	}
 
 	/**
@@ -87,47 +71,22 @@ public class ClickTextBox extends BasicTextBox
 	 * @param boxBorderColor
 	 *            the color of the outside area of the box; if <code>null</code>
 	 *            , it will be transparent
-	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
-	 *      int, int, Color)
-	 * 
-	 */
-	public ClickTextBox(final String text, final int boxPosX,
-			final int boxPosY, final int boxWidth, final int boxHeight,
-			final Color boxBorderColor)
-	{
-		this(text, boxPosX, boxPosY, boxWidth, boxHeight, null, null);
-	}
-
-	/**
-	 * Constructs a text box that contains text inside an enclosed box. It
-	 * changes color when the mouse hovers over it; and by clicking it, it will
-	 * perform an action.
-	 * 
-	 * @param text
-	 *            the text to display in the box
-	 * @param boxPosX
-	 *            the x-axis position of the left side of box
-	 * @param boxPosY
-	 *            the y-axis position of top side the box
-	 * @param boxWidth
-	 *            the size of the box, extending to the right
-	 * @param boxHeight
-	 *            the size of the box, extending downward
-	 * @param boxBorderColor
-	 *            the color of the outside area of the box; if <code>null</code>
-	 *            , it will be transparent
+	 * @param boxFillColor
+	 *            the color of the inside area of the box; if <code>null</code>,
+	 *            it will be transparent
 	 * @param textColor
 	 *            the color of the text in the box; if <code>null</code>, it
 	 *            will be white
-	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
-	 *      int, int, Color, Color)
+	 * @see jdivers.textbox.BasicTextBox#BasicTextBox(String, int, int, int,
+	 *      int, Color, Color, Color)
 	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
-			final Color boxBorderColor, final Color textColor)
+			final Color boxBorderColor, final Color boxFillColor,
+			final Color textColor)
 	{
-		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor, null,
-				null, textColor, null);
+		this(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor,
+				boxFillColor, null, textColor, Color.yellow);
 	}
 
 	/**
@@ -160,8 +119,8 @@ public class ClickTextBox extends BasicTextBox
 	 * @param textMouseOverColor
 	 *            the color of the text in the box when the mouse is hovering
 	 *            over it; if <code>null</code>, it will be white
-	 * @see jdivers.textbox.BasicTextBox#AbstractTextBox(String, int, int,
-	 *      int, int, Color, Color, Color)
+	 * @see jdivers.textbox.BasicTextBox#BasicTextBox(String, int, int, int,
+	 *      int, Color, Color, Color)
 	 */
 	public ClickTextBox(final String text, final int boxPosX,
 			final int boxPosY, final int boxWidth, final int boxHeight,
@@ -174,23 +133,8 @@ public class ClickTextBox extends BasicTextBox
 
 		currentBoxFillColor = boxBorderColor;
 
-		if (boxMouseOverColor == null)
-		{
-			this.boxMouseOverColor = Color.cyan;
-		}
-		else
-		{
-			this.boxMouseOverColor = boxMouseOverColor;
-		}
-
-		if (textMouseOverColor == null)
-		{
-			this.textMouseOverColor = Color.yellow;
-		}
-		else
-		{
-			this.textMouseOverColor = textMouseOverColor;
-		}
+		this.boxMouseOverColor = boxMouseOverColor;
+		this.textMouseOverColor = textMouseOverColor;
 
 		this.currentBoxFillColor = getBoxFillColor();
 	}
@@ -198,12 +142,23 @@ public class ClickTextBox extends BasicTextBox
 	@Override
 	public void show(final Graphics g)
 	{
+		// Set line width. This can also test if graphics is passed as null.
+		//
 		try
 		{
 			g.setLineWidth(1);
+		}
+		catch (NullPointerException e)
+		{
+			System.err.printf("%nNullPointerException! " +
+					"Graphics input is null!%n%s", toString());
+			System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
+		}
 
-			// Draw the box perimeter. If it is null, it will be transparent.
-			//
+		// Draw the box perimeter. If it is null, it will be transparent.
+		//
+		try
+		{
 			if (getBoxBorderColor() != null)
 			{
 				g.setColor(getBoxBorderColor());
@@ -211,34 +166,65 @@ public class ClickTextBox extends BasicTextBox
 				g.drawRect(getBoxPosX(), getBoxPosY(), getBoxWidth(),
 						getBoxHeight());
 			}
+		}
+		catch (NullPointerException e)
+		{
+			System.err.printf("%nNullPointerException! " +
+					"boxBorderColor is null!%n%s", toString());
+			System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
+		}
 
-			// Color the inside of the box. If it is null, it will be
-			// transparent.
-			//
+		// Color the inside of the box. If it is null, it will be
+		// transparent.
+		//
+		try
+		{
 			if (getCurrentBoxFillColor() != null)
 			{
 				g.setColor(getCurrentBoxFillColor());
 
 				g.fillRect(getBoxPosX() + 1, getBoxPosY() + 1,
-						getBoxWidth() - 2, getBoxHeight() - 2);
+						getBoxWidth() - 1, getBoxHeight() - 1);
 			}
-
-			// Draws the text after setting its color.
-			//
-			g.setColor(getCurrentTextColor());
-
-			g.drawString(
-					getText(),
-					getStartTextXTextBox(g.getFont(), getText(), getBoxPosX(),
-							getBoxWidth()),
-					getStartTextYTextBox(g.getFont(), getText(), getBoxPosY(),
-							getBoxHeight()));
 		}
 		catch (NullPointerException e)
 		{
-			System.err.println("NullPointerException " +
-					"TextBox Error\n" + toString());
-			System.exit(1);
+			System.err.printf("%nNullPointerException! " +
+					"boxBorderColor is null!%n%s", toString());
+			System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
+		}
+
+		// Draws the text after setting its color. If text is null, then it will
+		// not render.
+		//
+		if (getText() != null)
+		{
+			try
+			{
+				g.setColor(getCurrentTextColor());
+			}
+			catch (NullPointerException e)
+			{
+				System.err.printf("%nNullPointerException! " +
+						"textColor is null!%n%s", toString());
+				System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
+			}
+
+			try
+			{
+				g.drawString(
+						getText(),
+						getStartTextXTextBox(g.getFont(), getText(),
+								getBoxPosX(), getBoxWidth()),
+						getStartTextYTextBox(g.getFont(), getText(),
+								getBoxPosY(), getBoxHeight()));
+			}
+			catch (NullPointerException e)
+			{
+				System.err.printf("%nNullPointerException! " +
+						"The font is null!%n%s", toString());
+				System.exit(Global.NULL_POINTER_EXCEPTION_CODE);
+			}
 		}
 	}
 
@@ -267,15 +253,36 @@ public class ClickTextBox extends BasicTextBox
 		}
 		catch (NullPointerException e)
 		{
-			System.err.println("NullPointerException " +
-					"TextBox Error\n" + toString());
+			System.err.printf("%nNullPointerException! " +
+					"ClickHandler not set for:%n%s",
+					toString());
 			System.exit(1);
 		}
 	}
 
-	public void setListener(ClickHandler clickHandler)
+	@Override
+	public String toString()
 	{
-		this.clickHandler = clickHandler;
+		try
+		{
+			return String
+					.format("ClickTextBox " +
+							"[text=%s, " +
+							"boxPosX=%d, boxPosY=%d, boxWidth=%d, boxHeight=%d]",
+							getText(), getBoxPosX(), getBoxPosY(),
+							getBoxWidth(), getBoxHeight());
+		}
+		catch (IllegalFormatException e)
+		{
+			System.err.printf("\nIllegalFormatException! " +
+					"The formatting toString system failed!\n\"%s\"\n",
+					getClass());
+			System.exit(Global.ILLEGAL_FORMAT_EXCEPTION_CODE);
+
+			// Unreachable code, just to please Java.
+			//
+			throw e;
+		}
 	}
 
 	//
@@ -297,6 +304,10 @@ public class ClickTextBox extends BasicTextBox
 		return (MouseFix.getMouseY() > getBoxPosY() && MouseFix.getMouseY() < getBoxPosY() + getBoxHeight());
 	}
 
+	//
+	// Getter / Setters
+	//
+
 	public ClickHandler getClickHandler()
 	{
 		return clickHandler;
@@ -306,10 +317,6 @@ public class ClickTextBox extends BasicTextBox
 	{
 		this.clickHandler = clickHandler;
 	}
-
-	//
-	// Getter and Setters
-	//
 
 	public Color getBoxMouseOverColor()
 	{

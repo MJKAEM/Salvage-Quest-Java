@@ -60,7 +60,7 @@ public class OptionMenu extends AbstractMenu
 		switch (index)
 		{
 			case -1:
-				exitBox.setListener(clickHandler);
+				exitBox.setClickHandler(clickHandler);
 				break;
 
 			default:
