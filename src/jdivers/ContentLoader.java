@@ -41,7 +41,7 @@ public class ContentLoader
 		}
 		catch (SlickException e)
 		{
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -56,7 +56,7 @@ public class ContentLoader
 		}
 		catch (SlickException e)
 		{
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 };

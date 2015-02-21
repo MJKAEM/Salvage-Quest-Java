@@ -2,6 +2,8 @@ package jdivers;
 
 import jdivers.output.OutputTextBox;
 import jdivers.playmenu.MainHubMenu;
+import jdivers.playmenu.ShopMenu;
+import jdivers.textbox.ClickHandler;
 
 import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.GameContainer;
@@ -17,8 +19,11 @@ public class PlayState extends BasicGameState
 	public static final OutputTextBox outputTextbox = new OutputTextBox();
 	
 	private MainHubMenu mainHubMenu;
+	private ShopMenu shopMenu;
 
 	private AbstractMenu currentMenu;
+	
+	private ClickHandler switchMainHub, switchShop;
 
 	public PlayState(int state)
 	{
@@ -31,11 +36,33 @@ public class PlayState extends BasicGameState
 	{
 
 		mainHubMenu = new MainHubMenu();
+		shopMenu = new ShopMenu();
 		
 		currentMenu = mainHubMenu;
 
 		textboxFont = ContentLoader.fonts[0];
 		outputTextFont = ContentLoader.fonts[3];
+		
+		switchMainHub = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = mainHubMenu;
+			}
+		};
+		
+		switchShop = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = shopMenu;
+			}
+		};
+		
+		mainHubMenu.setListener(switchShop, 0);
+		shopMenu.setListener(switchMainHub, -1);
 	}
 
 	@Override

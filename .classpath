@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="libraries/slick2d/slick.jar" sourcepath="libraries.javadoc/slick.zip">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/JDivers/libraries%20javadoc/slick.zip!/javadoc"/>
@@ -12,7 +12,7 @@
 	<classpathentry kind="lib" path="libraries/lwjgl/lwjgl.jar" sourcepath="libraries.javadoc/lwjgl-docs-2.9.2.zip">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/JDivers/libraries.javadoc/lwjgl-docs-2.9.2.zip!/javadoc"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="JDivers/libraries/lwjgl/native"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="jdivers/libraries/lwjgl/native"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

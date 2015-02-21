@@ -8,7 +8,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * A text box that contains text inside of a box. The box can be either
@@ -32,6 +31,15 @@ public class BasicTextBox
 	private int boxPosX, boxPosY;
 	private int boxWidth, boxHeight;
 
+	/**
+	 * Empty constructor that will never be used.
+	 */
+	@SuppressWarnings("unused")
+	private BasicTextBox()
+	{
+		
+	}
+	
 	/**
 	 * Constructs a text box that contains text inside an enclosed box.
 	 * 
@@ -357,7 +365,7 @@ public class BasicTextBox
 		final int centerBox = boxPosY + (boxHeight / 2);
 
 		final int centerTextAndBox = centerBox - (textHeight / 2);
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException("Not implemented.");
 		// return centerTextAndBox;
 	}
 };

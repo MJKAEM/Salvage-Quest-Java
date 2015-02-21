@@ -1,5 +1,7 @@
 package jdivers;
 
+import org.newdawn.slick.Color;
+
 public class Global
 {
 	// List of error exit code constants.
@@ -11,6 +13,9 @@ public class Global
 
 	public static final int menuStateValue = 0;
 	public static final int playStateValue = 1;
+
+	public static Color mouseOnColor = new Color(128, 128, 255, 200);
+	public static Color mouseOffColor = new Color(128, 128, 255, 100);
 
 	public static int width = 640;
 	public static int height = 480;
