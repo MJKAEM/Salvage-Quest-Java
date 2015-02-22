@@ -15,7 +15,7 @@ public class MainHubMenu extends AbstractMenu
 {
 	private static Image screenImage = ContentLoader.backgroundImages[0];
 
-	private ClickTextBox shopBox, bankBox;
+	private ClickTextBox shopBox, stashBox, swimBox, sellBox, fishingBox;
 
 	public MainHubMenu()
 	{
@@ -29,10 +29,44 @@ public class MainHubMenu extends AbstractMenu
 				Global.mouseOnColor,
 				Color.white,
 				Color.yellow);
-		
-		bankBox = new ClickTextBox("Stash",
-				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+
+		stashBox = new ClickTextBox(
+				"Stash",
+				Global.halfWidth - BasicTextBox.DEFAULT_TEXTBOX_HALF_WIDTH,
 				0,
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
+				Color.darkGray,
+				Global.mouseOffColor,
+				Global.mouseOnColor,
+				Color.white,
+				Color.yellow);
+
+		swimBox = new ClickTextBox("Go Swim",
+				Global.width - BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				0,
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
+				Color.darkGray,
+				Global.mouseOffColor,
+				Global.mouseOnColor,
+				Color.white,
+				Color.yellow);
+
+		sellBox = new ClickTextBox("Sell",
+				0,
+				Global.halfHeight >> 1,
+				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
+				Color.darkGray,
+				Global.mouseOffColor,
+				Global.mouseOnColor,
+				Color.white,
+				Color.yellow);
+
+		fishingBox = new ClickTextBox("Fishing",
+				Global.width - BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+				Global.halfHeight >> 1,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
 				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
 				Color.darkGray,
@@ -48,26 +82,38 @@ public class MainHubMenu extends AbstractMenu
 		showBackground(g, screenImage);
 
 		shopBox.show(g);
-		bankBox.show(g);
+		stashBox.show(g);
+		swimBox.show(g);
+		sellBox.show(g);
+		fishingBox.show(g);
 	}
 
 	@Override
 	public void update()
 	{
 		shopBox.update();
-		bankBox.update();
+		stashBox.update();
+		swimBox.update();
+		sellBox.update();
+		fishingBox.update();
 	}
 
 	@Override
 	public void mouseReleased()
 	{
 		shopBox.mouseReleased();
-		bankBox.mouseReleased();
+		stashBox.mouseReleased();
+		swimBox.mouseReleased();
+		sellBox.mouseReleased();
+		fishingBox.mouseReleased();
 	}
 
 	/**
 	 * {@inheritDoc} <b> 0 = shopBox<br>
-	 * 1 = bankBox</b>
+	 * 1 = stashBox<br>
+	 * 2 = swimBox<br>
+	 * 3 = sellBox<br>
+	 * 4 = fishingBox</b>
 	 * 
 	 * @param clickHandler
 	 *            - The clickHandler used for the text box upon clicking
@@ -77,14 +123,26 @@ public class MainHubMenu extends AbstractMenu
 	@Override
 	public void setListener(ClickHandler clickHandler, int index)
 	{
-		switch(index)
+		switch (index)
 		{
 			case 0:
 				shopBox.setClickHandler(clickHandler);
 				break;
-				
+
 			case 1:
-				bankBox.setClickHandler(clickHandler);
+				stashBox.setClickHandler(clickHandler);
+				break;
+
+			case 2:
+				swimBox.setClickHandler(clickHandler);
+				break;
+
+			case 3:
+				sellBox.setClickHandler(clickHandler);
+				break;
+
+			case 4:
+				fishingBox.setClickHandler(clickHandler);
 				break;
 		}
 	}
