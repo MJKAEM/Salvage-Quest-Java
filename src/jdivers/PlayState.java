@@ -38,7 +38,7 @@ public class PlayState extends BasicGameState
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException
 	{
-		playerData = new PlayerData();
+		playerData = new PlayerData("Anonymous");
 
 		mainHubMenu = new MainHubMenu();
 		shopMenu = new ShopMenu();
