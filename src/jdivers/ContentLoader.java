@@ -53,6 +53,7 @@ public class ContentLoader
 		{
 			backgroundImages[0] = new Image(fontPath + "MainMenu.png");
 			backgroundImages[1] = new Image(fontPath + "OptionMenu.png");
+			backgroundImages[2] = new Image(fontPath + "StashMenu.png");
 		}
 		catch (SlickException e)
 		{

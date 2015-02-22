@@ -17,8 +17,8 @@ public class Global
 	public static Color mouseOnColor = new Color(128, 128, 255, 200);
 	public static Color mouseOffColor = new Color(128, 128, 255, 100);
 
-	public static int width = 640;
-	public static int height = 480;
+	public static int width = 320;
+	public static int height = 240;
 	public static boolean fullScreen = false;
 	public static boolean vSync = false;
 

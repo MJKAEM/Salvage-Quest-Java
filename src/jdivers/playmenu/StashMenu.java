@@ -1,6 +1,7 @@
 package jdivers.playmenu;
 
 import jdivers.AbstractMenu;
+import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
@@ -8,12 +9,15 @@ import jdivers.textbox.ClickTextBox;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
-public class BankMenu extends AbstractMenu
+public class StashMenu extends AbstractMenu
 {
+	private static Image screenImage = ContentLoader.backgroundImages[2];
+
 	private ClickTextBox exitBox;
 
-	public BankMenu()
+	public StashMenu()
 	{
 		exitBox = new ClickTextBox(
 				"Exit",
@@ -22,8 +26,8 @@ public class BankMenu extends AbstractMenu
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
 				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
 				Color.darkGray,
-				new Color(128, 128, 255, 100),
-				new Color(128, 128, 255, 200),
+				Global.mouseOffColor,
+				Global.mouseOnColor,
 				Color.white,
 				Color.yellow);
 	}
@@ -31,6 +35,8 @@ public class BankMenu extends AbstractMenu
 	@Override
 	public void show(Graphics g)
 	{
+		showBackground(g, StashMenu.screenImage);
+
 		exitBox.show(g);
 	}
 
@@ -52,7 +58,7 @@ public class BankMenu extends AbstractMenu
 		switch (index)
 		{
 			case -1:
-
+				exitBox.setClickHandler(clickHandler);
 				break;
 		}
 	}

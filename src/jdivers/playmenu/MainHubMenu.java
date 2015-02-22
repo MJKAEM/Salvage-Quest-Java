@@ -30,7 +30,7 @@ public class MainHubMenu extends AbstractMenu
 				Color.white,
 				Color.yellow);
 		
-		bankBox = new ClickTextBox("Bank",
+		bankBox = new ClickTextBox("Stash",
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
 				0,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
@@ -65,6 +65,15 @@ public class MainHubMenu extends AbstractMenu
 		bankBox.mouseReleased();
 	}
 
+	/**
+	 * {@inheritDoc} <b> 0 = shopBox<br>
+	 * 1 = bankBox</b>
+	 * 
+	 * @param clickHandler
+	 *            - The clickHandler used for the text box upon clicking
+	 * @param index
+	 *            - Index of box to modify
+	 */
 	@Override
 	public void setListener(ClickHandler clickHandler, int index)
 	{

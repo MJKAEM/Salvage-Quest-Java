@@ -3,6 +3,7 @@ package jdivers;
 import jdivers.output.OutputTextBox;
 import jdivers.playmenu.MainHubMenu;
 import jdivers.playmenu.ShopMenu;
+import jdivers.playmenu.StashMenu;
 import jdivers.textbox.ClickHandler;
 
 import org.newdawn.slick.AngelCodeFont;
@@ -15,15 +16,18 @@ import org.newdawn.slick.state.StateBasedGame;
 public class PlayState extends BasicGameState
 {
 	private AngelCodeFont textboxFont, outputTextFont;
-	
+
 	public static final OutputTextBox outputTextbox = new OutputTextBox();
-	
+
+	private PlayerData playerData;
+
 	private MainHubMenu mainHubMenu;
 	private ShopMenu shopMenu;
+	private StashMenu stashMenu;
 
 	private AbstractMenu currentMenu;
-	
-	private ClickHandler switchMainHub, switchShop;
+
+	private ClickHandler switchMainHub, switchShop, switchStash;
 
 	public PlayState(int state)
 	{
@@ -34,35 +38,23 @@ public class PlayState extends BasicGameState
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException
 	{
+		playerData = new PlayerData();
 
 		mainHubMenu = new MainHubMenu();
 		shopMenu = new ShopMenu();
-		
+		stashMenu = new StashMenu();
+
 		currentMenu = mainHubMenu;
 
 		textboxFont = ContentLoader.fonts[0];
 		outputTextFont = ContentLoader.fonts[3];
-		
-		switchMainHub = new ClickHandler()
-		{
-			@Override
-			public void onClick()
-			{
-				currentMenu = mainHubMenu;
-			}
-		};
-		
-		switchShop = new ClickHandler()
-		{
-			@Override
-			public void onClick()
-			{
-				currentMenu = shopMenu;
-			}
-		};
-		
+
+		initHandlers();
+
 		mainHubMenu.setListener(switchShop, 0);
+		mainHubMenu.setListener(switchStash, 1);
 		shopMenu.setListener(switchMainHub, -1);
+		stashMenu.setListener(switchMainHub, -1);
 	}
 
 	@Override
@@ -71,7 +63,7 @@ public class PlayState extends BasicGameState
 	{
 		g.setFont(textboxFont);
 		currentMenu.show(g);
-		
+
 		g.setFont(outputTextFont);
 		outputTextbox.show(g);
 	}
@@ -102,4 +94,33 @@ public class PlayState extends BasicGameState
 		return Global.playStateValue;
 	}
 
-}
+	private void initHandlers()
+	{
+		switchMainHub = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = mainHubMenu;
+			}
+		};
+
+		switchShop = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = shopMenu;
+			}
+		};
+
+		switchStash = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = stashMenu;
+			}
+		};
+	}
+};
