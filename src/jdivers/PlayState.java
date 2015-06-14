@@ -7,6 +7,7 @@ import jdivers.playmenu.StashMenu;
 import jdivers.textbox.ClickHandler;
 
 import org.newdawn.slick.AngelCodeFont;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -66,6 +67,17 @@ public class PlayState extends BasicGameState
 
 		g.setFont(outputTextFont);
 		outputTextbox.show(g);
+
+		// Draw HUD.
+		//
+		g.setFont(outputTextFont);
+		g.setColor(Color.black);
+		g.drawString(playerData.getCurHealth() + " HP", 20,
+				Global.threeFourthHeight - 40);
+		g.drawString(playerData.getCurArmor() + " AP", 20,
+				Global.threeFourthHeight - 20);
+		g.drawString("$" + playerData.getCurMoney(), Global.threeFourthWidth,
+				Global.threeFourthHeight - 20);
 	}
 
 	@Override

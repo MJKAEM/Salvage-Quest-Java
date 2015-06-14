@@ -1,11 +1,11 @@
 package jdivers.mainmenu;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import jdivers.ContentLoader;
 import jdivers.Global;
-import jdivers.MainMenuState;
 import jdivers.AbstractMenu;
 import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
@@ -22,11 +22,18 @@ public class OptionMenu extends AbstractMenu
 	{
 		super();
 
+		final Color boxBorderColor = new Color(255, 255, 255, 100);
+
 		exitBox = new SpecialClickTextBox("Exit",
 				0,
 				Global.threeFourthHeight,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
-				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT);
+				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
+				boxBorderColor,
+				null,
+				null,
+				Color.white,
+				Color.yellow);
 	}
 
 	@Override
