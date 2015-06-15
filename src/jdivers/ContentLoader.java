@@ -8,16 +8,20 @@ public class ContentLoader
 {
 	public static final AngelCodeFont[] fonts = new AngelCodeFont[5];
 	public static final Image[] backgroundImages = new Image[20];
+	public static final Image[] itemImages = new Image[20];
+
+	private static final String fontPath = "resources/fonts/";
+	private static final String imagePath = "resources/images/";
 
 	public static void loadAllContent()
 	{
-		loadImages();
+		loadBackgrounds();
+		loadItemImages();
 		loadFonts();
 	}
 
 	public static void loadFonts()
 	{
-		final String fontPath = "resources/fonts/";
 		final String fontExtName = ".fnt";
 		final String fontChartExtName = "_0.png";
 
@@ -45,21 +49,55 @@ public class ContentLoader
 		}
 	}
 
-	public static void loadImages()
+	public static void loadBackgrounds()
 	{
-		final String imagePath = "resources/images/";
+		final String backgroundPath = imagePath + "backgrounds/";
 
 		try
 		{
-			backgroundImages[0] = new Image(imagePath + "MainMenu.png");
-			backgroundImages[1] = new Image(imagePath + "OptionMenu.png");
-			backgroundImages[2] = new Image(imagePath + "StashMenu.png");
-			backgroundImages[3] = new Image(imagePath + "SwimMenu.png");
-			backgroundImages[4] = new Image(imagePath + "DiveMenu.png");
+			backgroundImages[0] = new Image(backgroundPath + "MainMenu.png");
+			backgroundImages[1] = new Image(backgroundPath + "OptionMenu.png");
+			backgroundImages[2] = new Image(backgroundPath + "StashMenu.png");
+			backgroundImages[3] = new Image(backgroundPath + "SwimMenu.png");
+			backgroundImages[4] = new Image(backgroundPath + "DiveMenu.png");
 		}
 		catch (SlickException e)
 		{
 			System.err.println(e.getMessage());
+		}
+	}
+
+	public static void loadItemImages()
+	{
+		final String itemPath = imagePath + "items/";
+
+		if (Global.width < 640 || Global.height < 480)
+		{
+			try
+			{
+				itemImages[0] = new Image(itemPath + "Sapphire.png");
+				itemImages[1] = new Image(itemPath + "Ruby.png");
+				itemImages[2] = new Image(itemPath + "Emerald.png");
+				itemImages[3] = new Image(itemPath + "Diamond.png");
+			}
+			catch (SlickException e)
+			{
+				System.err.println(e.getMessage());
+			}
+		}
+		else
+		{
+			try
+			{
+				itemImages[0] = new Image(itemPath + "BigSapphire.png");
+				itemImages[1] = new Image(itemPath + "BigRuby.png");
+				itemImages[2] = new Image(itemPath + "BigEmerald.png");
+				itemImages[3] = new Image(itemPath + "BigDiamond.png");
+			}
+			catch (SlickException e)
+			{
+				System.err.println(e.getMessage());
+			}
 		}
 	}
 };
