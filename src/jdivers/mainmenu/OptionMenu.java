@@ -62,7 +62,7 @@ public class OptionMenu extends AbstractMenu
 	}
 
 	@Override
-	public void setListener(final ClickHandler clickHandler, final int index)
+	public void setClickHandler(final ClickHandler clickHandler, final int index)
 	{
 		switch (index)
 		{

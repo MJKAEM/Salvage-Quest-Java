@@ -116,12 +116,12 @@ public class MainHubMenu extends AbstractMenu
 	 * 4 = fishingBox</b>
 	 * 
 	 * @param clickHandler
-	 *            - The clickHandler used for the text box upon clicking
+	 *            The clickHandler used for the text box upon clicking
 	 * @param index
-	 *            - Index of box to modify
+	 *            Index of box to modify
 	 */
 	@Override
-	public void setListener(ClickHandler clickHandler, int index)
+	public void setClickHandler(ClickHandler clickHandler, int index)
 	{
 		switch (index)
 		{

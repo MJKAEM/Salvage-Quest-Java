@@ -44,7 +44,7 @@ public class CreditsMenu extends AbstractMenu
 	}
 
 	@Override
-	public void setListener(ClickHandler clickHandler, int index)
+	public void setClickHandler(ClickHandler clickHandler, int index)
 	{
 		// TODO Auto-generated method stub
 		

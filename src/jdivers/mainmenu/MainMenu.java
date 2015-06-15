@@ -1,10 +1,8 @@
 package jdivers.mainmenu;
 
+import jdivers.AbstractMenu;
 import jdivers.ContentLoader;
 import jdivers.Global;
-import jdivers.JDivers;
-import jdivers.MainMenuState;
-import jdivers.AbstractMenu;
 import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextBox;
@@ -17,6 +15,9 @@ import org.newdawn.slick.Image;
 
 public class MainMenu extends AbstractMenu
 {
+	public static final int GO_PLAY = 0;
+	public static final int GO_OPTIONS = 1;
+	
 	private static final String titleName = "Divers";
 	private static Image screenImage = ContentLoader.backgroundImages[0];
 
@@ -128,15 +129,15 @@ public class MainMenu extends AbstractMenu
 	 * @param index
 	 *            index of box to modify
 	 */
-	public void setListener(ClickHandler clickHandler, int index)
+	public void setClickHandler(final ClickHandler clickHandler, final int index)
 	{
 		switch (index)
 		{
-			case 0:
+			case GO_PLAY:
 				playBox.setClickHandler(clickHandler);
 				break;
 
-			case 1:
+			case GO_OPTIONS:
 				optionsBox.setClickHandler(clickHandler);
 				break;
 

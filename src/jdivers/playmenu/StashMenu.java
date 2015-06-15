@@ -13,7 +13,7 @@ import org.newdawn.slick.Image;
 
 public class StashMenu extends AbstractMenu
 {
-	private static Image screenImage = ContentLoader.backgroundImages[2];
+	private static Image backgroundImage = ContentLoader.backgroundImages[2];
 
 	private ClickTextBox exitBox;
 
@@ -35,7 +35,7 @@ public class StashMenu extends AbstractMenu
 	@Override
 	public void show(Graphics g)
 	{
-		showBackground(g, StashMenu.screenImage);
+		showBackground(g, StashMenu.backgroundImage);
 
 		exitBox.show(g);
 	}
@@ -53,7 +53,7 @@ public class StashMenu extends AbstractMenu
 	}
 
 	@Override
-	public void setListener(ClickHandler clickHandler, int index)
+	public void setClickHandler(ClickHandler clickHandler, int index)
 	{
 		switch (index)
 		{

@@ -21,6 +21,7 @@ public class MainMenuState extends BasicGameState
 	private AngelCodeFont textboxFont, copyrightFont;
 
 	private ClickHandler switchMainMenu, switchPlayState, switchOptionsMenu;
+			
 
 	public MainMenuState(int state)
 	{
@@ -39,6 +40,58 @@ public class MainMenuState extends BasicGameState
 		copyrightFont = ContentLoader.fonts[1];
 		mainMenu.setTitleFont(ContentLoader.fonts[2]);
 
+		initMenuHandlerClickActions(sbg);
+		initMenuHandlers();
+	}
+
+	@Override
+	public void render(final GameContainer gc, final StateBasedGame sbg,
+			final Graphics g) throws SlickException
+	{
+		g.setFont(textboxFont);
+		currentMenu.show(g);
+		g.setFont(copyrightFont);
+		showAuthor(g);
+	}
+
+	@Override
+	public void update(final GameContainer gc, final StateBasedGame sbg,
+			final int delta) throws SlickException
+	{
+		currentMenu.update();
+
+		MouseFix.updateMouseY();
+	}
+
+	@Override
+	public void mouseReleased(final int button, final int x, final int y)
+	{
+		switch (button)
+		{
+			case 0: // Left mouse click
+				currentMenu.mouseReleased();
+				break;
+		}
+	}
+
+	@Override
+	public int getID()
+	{
+		return Global.menuStateValue;
+	}
+
+	public void showAuthor(final Graphics g)
+	{
+		final String copyright = "\u00A9Artanis Margatroid 2015";
+
+		g.setColor(Color.black);
+		g.drawString(copyright,
+				Global.width - g.getFont().getWidth(copyright),
+				Global.height - 20);
+	}
+
+	private void initMenuHandlerClickActions(final StateBasedGame sbg)
+	{
 		switchMainMenu = new ClickHandler()
 		{
 			@Override
@@ -65,55 +118,12 @@ public class MainMenuState extends BasicGameState
 				currentMenu = optionMenu;
 			}
 		};
-
-		mainMenu.setListener(switchPlayState, 0);
-		mainMenu.setListener(switchOptionsMenu, 1);
-		optionMenu.setListener(switchMainMenu, -1);
 	}
 
-	@Override
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-			throws SlickException
+	private void initMenuHandlers()
 	{
-		g.setFont(textboxFont);
-		currentMenu.show(g);
-		g.setFont(copyrightFont);
-		showAuthor(g);
-	}
-
-	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int delta)
-			throws SlickException
-	{
-		currentMenu.update();
-
-		MouseFix.updateMouseY();
-	}
-
-	@Override
-	public void mouseReleased(int button, int x, int y)
-	{
-		switch (button)
-		{
-			case 0: // Left mouse click
-				currentMenu.mouseReleased();
-				break;
-		}
-	}
-
-	@Override
-	public int getID()
-	{
-		return Global.menuStateValue;
-	}
-
-	public void showAuthor(final Graphics g)
-	{
-		final String copyright = "\u00A9Artanis Margatroid 2015";
-
-		g.setColor(Color.black);
-		g.drawString(copyright,
-				Global.width - g.getFont().getWidth(copyright),
-				Global.height - 20);
+		mainMenu.setClickHandler(switchPlayState, 0);
+		mainMenu.setClickHandler(switchOptionsMenu, 1);
+		optionMenu.setClickHandler(switchMainMenu, AbstractMenu.GO_BACK);
 	}
 };

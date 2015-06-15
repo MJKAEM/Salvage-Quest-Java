@@ -1,9 +1,11 @@
 package jdivers;
 
 import jdivers.output.OutputTextBox;
+import jdivers.playmenu.DiveMenu;
 import jdivers.playmenu.MainHubMenu;
 import jdivers.playmenu.ShopMenu;
 import jdivers.playmenu.StashMenu;
+import jdivers.playmenu.SwimMenu;
 import jdivers.textbox.ClickHandler;
 
 import org.newdawn.slick.AngelCodeFont;
@@ -25,10 +27,13 @@ public class PlayState extends BasicGameState
 	private MainHubMenu mainHubMenu;
 	private ShopMenu shopMenu;
 	private StashMenu stashMenu;
+	private SwimMenu swimMenu;
+	private DiveMenu diveMenu;
 
 	private AbstractMenu currentMenu;
 
-	private ClickHandler switchMainHub, switchShop, switchStash;
+	private ClickHandler switchMainHub, switchShop, switchStash, switchSwim,
+			switchDive, switchFishing;
 
 	public PlayState(int state)
 	{
@@ -44,18 +49,16 @@ public class PlayState extends BasicGameState
 		mainHubMenu = new MainHubMenu();
 		shopMenu = new ShopMenu();
 		stashMenu = new StashMenu();
+		swimMenu = new SwimMenu();
+		diveMenu = new DiveMenu();
 
 		currentMenu = mainHubMenu;
 
 		textboxFont = ContentLoader.fonts[0];
 		outputTextFont = ContentLoader.fonts[3];
 
-		initHandlers();
-
-		mainHubMenu.setListener(switchShop, 0);
-		mainHubMenu.setListener(switchStash, 1);
-		shopMenu.setListener(switchMainHub, -1);
-		stashMenu.setListener(switchMainHub, -1);
+		initMenuHandlerClickActions();
+		initMenuHandlers();
 	}
 
 	@Override
@@ -106,7 +109,7 @@ public class PlayState extends BasicGameState
 		return Global.playStateValue;
 	}
 
-	private void initHandlers()
+	private void initMenuHandlerClickActions()
 	{
 		switchMainHub = new ClickHandler()
 		{
@@ -134,5 +137,36 @@ public class PlayState extends BasicGameState
 				currentMenu = stashMenu;
 			}
 		};
+
+		switchSwim = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = swimMenu;
+			}
+		};
+		
+		switchDive = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				currentMenu = diveMenu;
+			}
+		};
+	}
+
+	private void initMenuHandlers()
+	{
+		mainHubMenu.setClickHandler(switchShop, 0);
+		mainHubMenu.setClickHandler(switchStash, 1);
+		mainHubMenu.setClickHandler(switchSwim, 2);
+		// mainHubMenu.setClickHandler(switchFishing, 4);
+		shopMenu.setClickHandler(switchMainHub, AbstractMenu.GO_BACK);
+		stashMenu.setClickHandler(switchMainHub, AbstractMenu.GO_BACK);
+		swimMenu.setClickHandler(switchMainHub, AbstractMenu.GO_BACK);
+		swimMenu.setClickHandler(switchDive, SwimMenu.GO_DIVE);
+		diveMenu.setClickHandler(switchSwim, AbstractMenu.GO_BACK);
 	}
 };

@@ -2,23 +2,26 @@ package jdivers.playmenu;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import jdivers.AbstractMenu;
+import jdivers.ContentLoader;
 import jdivers.Global;
 import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextBox;
 
-public class ShopMenu extends AbstractMenu
+public class DiveMenu extends AbstractMenu
 {
-	private ClickTextBox exitBox;
-	private ClickTextBox pistolBox, rifleBox, ammoBox;
+	private static Image backgroundImage = ContentLoader.backgroundImages[4];
+	
+	private ClickTextBox ascendBox;
 
-	public ShopMenu()
+	public DiveMenu()
 	{
-		exitBox = new ClickTextBox(
-				"Exit",
-				Global.width - BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
+		ascendBox = new ClickTextBox(
+				"Ascend",
+				0,
 				0,
 				BasicTextBox.DEFAULT_TEXTBOX_WIDTH,
 				BasicTextBox.DEFAULT_TEXTBOX_HEIGHT,
@@ -28,32 +31,33 @@ public class ShopMenu extends AbstractMenu
 				Color.white,
 				Color.yellow);
 	}
-
+	
 	@Override
-	public void show(Graphics g)
+	public void show(final Graphics g)
 	{
-		exitBox.show(g);
+		showBackground(g, backgroundImage);
+		ascendBox.show(g);
 	}
 
 	@Override
 	public void update()
 	{
-		exitBox.update();
+		ascendBox.update();
 	}
 
 	@Override
 	public void mouseReleased()
 	{
-		exitBox.mouseReleased();
+		ascendBox.mouseReleased();
 	}
 
 	@Override
-	public void setClickHandler(ClickHandler clickHandler, int index)
+	public void setClickHandler(final ClickHandler clickHandler, final int index)
 	{
 		switch (index)
 		{
-			case -1:
-				exitBox.setClickHandler(clickHandler);
+			case AbstractMenu.GO_BACK:
+				ascendBox.setClickHandler(clickHandler);
 				break;
 		}
 	}

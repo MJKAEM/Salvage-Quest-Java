@@ -47,13 +47,15 @@ public class ContentLoader
 
 	public static void loadImages()
 	{
-		final String fontPath = "resources/images/";
+		final String imagePath = "resources/images/";
 
 		try
 		{
-			backgroundImages[0] = new Image(fontPath + "MainMenu.png");
-			backgroundImages[1] = new Image(fontPath + "OptionMenu.png");
-			backgroundImages[2] = new Image(fontPath + "StashMenu.png");
+			backgroundImages[0] = new Image(imagePath + "MainMenu.png");
+			backgroundImages[1] = new Image(imagePath + "OptionMenu.png");
+			backgroundImages[2] = new Image(imagePath + "StashMenu.png");
+			backgroundImages[3] = new Image(imagePath + "SwimMenu.png");
+			backgroundImages[4] = new Image(imagePath + "DiveMenu.png");
 		}
 		catch (SlickException e)
 		{

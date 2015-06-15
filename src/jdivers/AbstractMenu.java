@@ -7,6 +7,8 @@ import org.newdawn.slick.Image;
 
 public abstract class AbstractMenu
 {
+	public static final int GO_BACK = -1;
+	
 	/**
 	 * Displays the menu graphics on the screen.
 	 * 
@@ -34,9 +36,9 @@ public abstract class AbstractMenu
 	 * @param index
 	 *            index of box to modify
 	 */
-	public abstract void setListener(ClickHandler clickHandler, int index);
+	public abstract void setClickHandler(final ClickHandler clickHandler, final int index);
 
-	protected void showBackground(Graphics g, Image backgroundImage)
+	protected void showBackground(final Graphics g, final Image backgroundImage)
 	{
 		g.drawImage(backgroundImage, 0, 0, Global.width, Global.height, 0, 0,
 				800,
