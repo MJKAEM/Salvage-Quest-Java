@@ -1,5 +1,7 @@
 package jdivers;
 
+import jdivers.items.ItemEnum;
+import jdivers.items.RandomGenerator;
 import jdivers.output.OutputTextBox;
 import jdivers.playmenu.DiveMenu;
 import jdivers.playmenu.MainHubMenu;
@@ -34,6 +36,8 @@ public class PlayState extends BasicGameState
 
 	private ClickHandler switchMainHub, switchShop, switchStash, switchSwim,
 			switchDive, switchFishing;
+
+	private ClickHandler searchItem;
 
 	public PlayState(int state)
 	{
@@ -146,13 +150,45 @@ public class PlayState extends BasicGameState
 				currentMenu = swimMenu;
 			}
 		};
-		
+
 		switchDive = new ClickHandler()
 		{
 			@Override
 			public void onClick()
 			{
 				currentMenu = diveMenu;
+			}
+		};
+
+		searchItem = new ClickHandler()
+		{
+			@Override
+			public void onClick()
+			{
+				int itemID = RandomGenerator.generateGem();
+
+				switch (itemID)
+				{
+					case 0:
+						outputTextbox.println("It seems you found nothing.");
+						break;
+
+					default:
+						ItemEnum itemEnum = ItemEnum.translateId(itemID);
+						boolean added = playerData.putIntoHand(itemEnum);
+
+						if (added)
+						{
+							outputTextbox.println("You found a " +
+									itemEnum.toString()
+									+ ". It is now in your hands");
+						}
+						else
+						{
+							outputTextbox.println("Your hands are full!");
+						}
+						break;
+				}
 			}
 		};
 	}
@@ -168,5 +204,6 @@ public class PlayState extends BasicGameState
 		swimMenu.setClickHandler(switchMainHub, AbstractMenu.GO_BACK);
 		swimMenu.setClickHandler(switchDive, SwimMenu.GO_DIVE);
 		diveMenu.setClickHandler(switchSwim, AbstractMenu.GO_BACK);
+		diveMenu.setClickHandler(searchItem, DiveMenu.SEARCH);
 	}
 };

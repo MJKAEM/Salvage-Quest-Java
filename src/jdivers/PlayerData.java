@@ -1,10 +1,16 @@
 package jdivers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jdivers.items.ItemEnum;
+
 public class PlayerData
 {
 	public static final int MAX_HEALTH = 100;
 	public static final int MAX_ARMOR = 200;
 	public static final int MAX_MONEY = 999_999_999;
+	public static final int MAX_INVENTORY_SPACE = 2;
 
 	private boolean unlockedFishing, unlocked;
 	private boolean ownStunStick, ownPistol, ownRifle, ownShotgun, ownRPG;
@@ -12,22 +18,27 @@ public class PlayerData
 	private String name;
 	private int curHealth, curArmor;
 	private int curMoney;
+	private ItemEnum onHand;
+	private List<ItemEnum> inventory;
 
 	public PlayerData(final String name)
 	{
-		this(name, 100, 0, 0);
+		this(name, 100, 0, 0, null, new ArrayList<ItemEnum>(2));
 	}
 
 	public PlayerData(final String name, final int curHealth,
-			final int curArmor, final int curMoney)
+			final int curArmor, final int curMoney, final ItemEnum onHand,
+			final List<ItemEnum> inventory)
 	{
 		this.name = name;
 		this.curHealth = curHealth;
 		this.curArmor = curArmor;
 		this.curMoney = curMoney;
+		this.onHand = onHand;
+		this.inventory = inventory;
 	}
 
-	public void addMoney(int money)
+	public void addMoney(final int money)
 	{
 		setCurMoney(getCurMoney() + money);
 
@@ -37,7 +48,7 @@ public class PlayerData
 		}
 	}
 
-	public void healHealth(int healPoints)
+	public void healHealth(final int healPoints)
 	{
 		setCurHealth(getCurHealth() + healPoints);
 
@@ -47,7 +58,7 @@ public class PlayerData
 		}
 	}
 
-	public void healArmor(int healPoints)
+	public void healArmor(final int healPoints)
 	{
 		setCurArmor(getCurArmor() + healPoints);
 
@@ -55,6 +66,68 @@ public class PlayerData
 		{
 			setCurArmor(MAX_ARMOR);
 		}
+	}
+	
+	public boolean putIntoHand(final int itemID)
+	{
+		ItemEnum item = ItemEnum.translateId(itemID);
+
+		boolean added = putIntoHand(item);
+		return added;
+	}
+	
+	public boolean putIntoHand(final ItemEnum itemEnum)
+	{
+		if (onHand == null)
+		{
+			onHand = itemEnum;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public boolean putIntoInventory(final int itemID)
+	{
+		ItemEnum item = ItemEnum.translateId(itemID);
+		
+		boolean added = putIntoInventory(item);
+		return added;
+	}
+
+	public boolean putIntoInventory(final ItemEnum itemEnum)
+	{
+		if (isInventoryFull(itemEnum))
+		{
+			return false;
+		}
+		else
+		{
+			boolean added = inventory.add(itemEnum);
+			return added;
+		}
+	}
+
+	/**
+	 * Determines if the player's inventory is <strike>overburden</strike>
+	 * unable to carry the item specified in the input.
+	 * 
+	 * @param itemEnum
+	 *            The item that is to be checked if there is enough space
+	 * @return
+	 */
+	public boolean isInventoryFull(final ItemEnum itemEnum)
+	{
+		int size = 0;
+
+		for (ItemEnum temp : inventory)
+		{
+			size += temp.getSpaceUsed();
+		}
+
+		return (size + itemEnum.getSpaceUsed() >= MAX_INVENTORY_SPACE);
 	}
 
 	//
@@ -66,7 +139,7 @@ public class PlayerData
 		return unlockedFishing;
 	}
 
-	public void setUnlockedFishing(boolean unlockedFishing)
+	public void setUnlockedFishing(final boolean unlockedFishing)
 	{
 		this.unlockedFishing = unlockedFishing;
 	}
@@ -76,7 +149,7 @@ public class PlayerData
 		return unlocked;
 	}
 
-	public void setUnlocked(boolean unlocked)
+	public void setUnlocked(final boolean unlocked)
 	{
 		this.unlocked = unlocked;
 	}
@@ -86,7 +159,7 @@ public class PlayerData
 		return curHealth;
 	}
 
-	public void setCurHealth(int curHealth)
+	public void setCurHealth(final int curHealth)
 	{
 		this.curHealth = curHealth;
 	}
@@ -96,7 +169,7 @@ public class PlayerData
 		return curArmor;
 	}
 
-	public void setCurArmor(int curArmor)
+	public void setCurArmor(final int curArmor)
 	{
 		this.curArmor = curArmor;
 	}
@@ -106,7 +179,7 @@ public class PlayerData
 		return curMoney;
 	}
 
-	public void setCurMoney(int curMoney)
+	public void setCurMoney(final int curMoney)
 	{
 		this.curMoney = curMoney;
 	}
@@ -116,7 +189,7 @@ public class PlayerData
 		return name;
 	}
 
-	public void setName(String name)
+	public void setName(final String name)
 	{
 		this.name = name;
 	}
@@ -126,7 +199,7 @@ public class PlayerData
 		return ownStunStick;
 	}
 
-	public void setOwnStunStick(boolean ownStunStick)
+	public void setOwnStunStick(final boolean ownStunStick)
 	{
 		this.ownStunStick = ownStunStick;
 	}
@@ -136,7 +209,7 @@ public class PlayerData
 		return ownPistol;
 	}
 
-	public void setOwnPistol(boolean ownPistol)
+	public void setOwnPistol(final boolean ownPistol)
 	{
 		this.ownPistol = ownPistol;
 	}
@@ -146,7 +219,7 @@ public class PlayerData
 		return ownRifle;
 	}
 
-	public void setOwnRifle(boolean ownRifle)
+	public void setOwnRifle(final boolean ownRifle)
 	{
 		this.ownRifle = ownRifle;
 	}
@@ -156,7 +229,7 @@ public class PlayerData
 		return ownShotgun;
 	}
 
-	public void setOwnShotgun(boolean ownShotgun)
+	public void setOwnShotgun(final boolean ownShotgun)
 	{
 		this.ownShotgun = ownShotgun;
 	}
@@ -166,7 +239,7 @@ public class PlayerData
 		return ownRPG;
 	}
 
-	public void setOwnRPG(boolean ownRPG)
+	public void setOwnRPG(final boolean ownRPG)
 	{
 		this.ownRPG = ownRPG;
 	}

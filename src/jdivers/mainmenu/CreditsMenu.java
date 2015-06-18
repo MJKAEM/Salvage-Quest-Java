@@ -1,13 +1,12 @@
 package jdivers.mainmenu;
 
-import org.newdawn.slick.Graphics;
-
-import jdivers.Global;
-import jdivers.MainMenuState;
 import jdivers.AbstractMenu;
+import jdivers.Global;
 import jdivers.textbox.BasicTextBox;
 import jdivers.textbox.ClickHandler;
 import jdivers.textbox.ClickTextBox;
+
+import org.newdawn.slick.Graphics;
 
 @Deprecated
 public class CreditsMenu extends AbstractMenu
