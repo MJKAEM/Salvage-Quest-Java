@@ -75,6 +75,7 @@ public class ContentLoader
 		{
 			try
 			{
+				itemImages[0] = new Image(itemPath + "Trash.png");
 				itemImages[1] = new Image(itemPath + "Sapphire.png");
 				itemImages[2] = new Image(itemPath + "Ruby.png");
 				itemImages[3] = new Image(itemPath + "Gold.png");
@@ -91,6 +92,7 @@ public class ContentLoader
 		{
 			try
 			{
+				itemImages[0] = new Image(itemPath + "BigTrash.png");
 				itemImages[1] = new Image(itemPath + "BigSapphire.png");
 				itemImages[2] = new Image(itemPath + "BigRuby.png");
 				itemImages[3] = new Image(itemPath + "BigGold.png");
