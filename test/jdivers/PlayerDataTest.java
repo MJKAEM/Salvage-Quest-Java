@@ -1,9 +1,7 @@
 package jdivers;
 
-import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import jdivers.items.ItemEnum;
 
 import org.junit.Test;
@@ -15,10 +13,7 @@ public class PlayerDataTest
 	@Test
 	public void isInventoryFullO2TankTest()
 	{
-		List<ItemEnum> inventory = new ArrayList<>();
-
-		PlayerData pd = new PlayerData(DEFAULT_USER_NAME,
-				100, 100, 100, null, inventory);
+		PlayerData pd = new PlayerData(DEFAULT_USER_NAME);
 
 		boolean added = pd.isInventoryFull(ItemEnum.O2Tank);
 
@@ -30,10 +25,7 @@ public class PlayerDataTest
 	@Test
 	public void isInventoryFullSapphireTest()
 	{
-		List<ItemEnum> inventory = new ArrayList<>();
-
-		PlayerData pd = new PlayerData(DEFAULT_USER_NAME,
-				100, 100, 100, null, inventory);
+		PlayerData pd = new PlayerData(DEFAULT_USER_NAME);
 
 		boolean added = pd.isInventoryFull(ItemEnum.Sapphire);
 
@@ -45,10 +37,7 @@ public class PlayerDataTest
 	@Test
 	public void putIntoInventoryO2TankTest()
 	{
-		List<ItemEnum> inventory = new ArrayList<>();
-
-		PlayerData pd = new PlayerData(DEFAULT_USER_NAME,
-				100, 100, 100, null, inventory);
+		PlayerData pd = new PlayerData(DEFAULT_USER_NAME);
 
 		boolean added = pd.putIntoInventory(ItemEnum.O2Tank);
 
@@ -60,10 +49,7 @@ public class PlayerDataTest
 	@Test
 	public void putIntoInventorySapphireTest()
 	{
-		List<ItemEnum> inventory = new ArrayList<>();
-
-		PlayerData pd = new PlayerData(DEFAULT_USER_NAME,
-				100, 100, 100, null, inventory);
+		PlayerData pd = new PlayerData(DEFAULT_USER_NAME);
 
 		boolean added = pd.putIntoInventory(ItemEnum.Sapphire);
 
@@ -75,10 +61,7 @@ public class PlayerDataTest
 	@Test
 	public void putIntoHandSapphireTest()
 	{
-		List<ItemEnum> inventory = new ArrayList<>();
-
-		PlayerData pd = new PlayerData(DEFAULT_USER_NAME,
-				100, 100, 100, null, inventory);
+		PlayerData pd = new PlayerData(DEFAULT_USER_NAME);
 
 		boolean added = pd.putIntoHand(ItemEnum.Sapphire);
 
@@ -90,10 +73,7 @@ public class PlayerDataTest
 	@Test
 	public void putIntoHandTwoSapphireTest()
 	{
-		List<ItemEnum> inventory = new ArrayList<>();
-
-		PlayerData pd = new PlayerData(DEFAULT_USER_NAME,
-				100, 100, 100, null, inventory);
+		PlayerData pd = new PlayerData(DEFAULT_USER_NAME);
 
 		pd.putIntoHand(ItemEnum.Sapphire);
 		boolean added = pd.putIntoHand(ItemEnum.Sapphire);

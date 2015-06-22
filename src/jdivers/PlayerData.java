@@ -78,9 +78,9 @@ public class PlayerData
 	
 	public boolean putIntoHand(final ItemEnum itemEnum)
 	{
-		if (onHand == null)
+		if (getOnHand() == null)
 		{
-			onHand = itemEnum;
+			setOnHand(itemEnum);
 			return true;
 		}
 		else
@@ -105,7 +105,7 @@ public class PlayerData
 		}
 		else
 		{
-			boolean added = inventory.add(itemEnum);
+			boolean added = getInventory().add(itemEnum);
 			return added;
 		}
 	}
@@ -122,7 +122,7 @@ public class PlayerData
 	{
 		int size = 0;
 
-		for (ItemEnum temp : inventory)
+		for (ItemEnum temp : getInventory())
 		{
 			size += temp.getSpaceUsed();
 		}
@@ -242,5 +242,20 @@ public class PlayerData
 	public void setOwnRPG(final boolean ownRPG)
 	{
 		this.ownRPG = ownRPG;
+	}
+	
+	public ItemEnum getOnHand()
+	{
+		return this.onHand;
+	}
+	
+	public void setOnHand(final ItemEnum onHand)
+	{
+		this.onHand = onHand;
+	}
+	
+	public List<ItemEnum> getInventory()
+	{
+		return this.inventory;
 	}
 };

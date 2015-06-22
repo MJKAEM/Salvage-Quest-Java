@@ -131,8 +131,6 @@ public class ClickTextBox extends BasicTextBox
 		super(text, boxPosX, boxPosY, boxWidth, boxHeight, boxBorderColor,
 				boxFillColor, textColor);
 
-		// currentBoxFillColor = boxBorderColor;
-
 		this.boxMouseOverColor = boxMouseOverColor;
 		this.textMouseOverColor = textMouseOverColor;
 
@@ -232,8 +230,8 @@ public class ClickTextBox extends BasicTextBox
 	{
 		if (mouseInBox())
 		{
-			currentBoxFillColor = boxMouseOverColor;
-			currentTextColor = textMouseOverColor;
+			currentBoxFillColor = getBoxMouseOverColor();
+			currentTextColor = getTextMouseOverColor();
 		}
 		else
 		{

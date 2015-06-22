@@ -22,7 +22,7 @@ public class PlayState extends BasicGameState
 {
 	private AngelCodeFont textboxFont, outputTextFont;
 
-	public static final OutputTextBox outputTextbox = new OutputTextBox();
+	public static OutputTextBox outputTextbox = new OutputTextBox();
 
 	private PlayerData playerData;
 
@@ -61,6 +61,8 @@ public class PlayState extends BasicGameState
 		textboxFont = ContentLoader.fonts[0];
 		outputTextFont = ContentLoader.fonts[3];
 
+		outputTextbox = new OutputTextBox(outputTextFont);
+
 		initMenuHandlerClickActions();
 		initMenuHandlers();
 	}
@@ -75,16 +77,7 @@ public class PlayState extends BasicGameState
 		g.setFont(outputTextFont);
 		outputTextbox.show(g);
 
-		// Draw HUD.
-		//
-		g.setFont(outputTextFont);
-		g.setColor(Color.black);
-		g.drawString(playerData.getCurHealth() + " HP", 20,
-				Global.threeFourthHeight - 40);
-		g.drawString(playerData.getCurArmor() + " AP", 20,
-				Global.threeFourthHeight - 20);
-		g.drawString("$" + playerData.getCurMoney(), Global.threeFourthWidth,
-				Global.threeFourthHeight - 20);
+		drawHud(g);
 	}
 
 	@Override
@@ -111,6 +104,22 @@ public class PlayState extends BasicGameState
 	public int getID()
 	{
 		return Global.playStateValue;
+	}
+
+	private void drawHud(final Graphics g)
+	{
+		g.setFont(outputTextFont);
+		g.setColor(Color.black);
+		g.drawString(playerData.getCurHealth() + " HP", 20,
+				Global.threeFourthHeight - 40);
+		g.drawString(playerData.getCurArmor() + " AP", 20,
+				Global.threeFourthHeight - 20);
+		g.drawString("$" + playerData.getCurMoney(), Global.threeFourthWidth,
+				Global.threeFourthHeight - 20);
+
+		// Draw player items.
+		//
+		// playerData.
 	}
 
 	private void initMenuHandlerClickActions()
@@ -181,7 +190,7 @@ public class PlayState extends BasicGameState
 						{
 							outputTextbox.println("You found a " +
 									itemEnum.toString()
-									+ ". It is now in your hands");
+									+ ". It is now in your hands.");
 						}
 						else
 						{
