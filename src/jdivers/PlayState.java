@@ -103,7 +103,7 @@ public class PlayState extends BasicGameState
 	@Override
 	public int getID()
 	{
-		return Global.playStateValue;
+		return Global.PLAY_STATE_ID;
 	}
 
 	private void drawHud(final Graphics g)
@@ -119,7 +119,7 @@ public class PlayState extends BasicGameState
 
 		// Draw player items.
 		//
-		// playerData.
+		playerData.showInventory(g);
 	}
 
 	private void initMenuHandlerClickActions()

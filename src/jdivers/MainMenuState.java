@@ -77,7 +77,7 @@ public class MainMenuState extends BasicGameState
 	@Override
 	public int getID()
 	{
-		return Global.menuStateValue;
+		return Global.MENU_STATE_ID;
 	}
 
 	public void showAuthor(final Graphics g)
@@ -106,7 +106,7 @@ public class MainMenuState extends BasicGameState
 			@Override
 			public void onClick()
 			{
-				sbg.enterState(Global.playStateValue);
+				sbg.enterState(Global.PLAY_STATE_ID);
 			}
 		};
 

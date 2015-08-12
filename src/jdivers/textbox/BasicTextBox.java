@@ -8,7 +8,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 
-
 /**
  * A text box that contains text inside of a box. The box can be either
  * transparent or colored, depending on the input in the constructor. The text
@@ -37,9 +36,9 @@ public class BasicTextBox
 	@SuppressWarnings("unused")
 	private BasicTextBox()
 	{
-		
+
 	}
-	
+
 	/**
 	 * Constructs a text box that contains text inside an enclosed box.
 	 * 
@@ -104,8 +103,8 @@ public class BasicTextBox
 		this.boxBorderColor = boxBorderColor;
 		this.boxFillColor = boxFillColor;
 		this.textColor = textColor;
-		
-		//setTextColor(null);
+
+		// setTextColor(null);
 	}
 
 	/**
@@ -286,7 +285,7 @@ public class BasicTextBox
 			throw new IllegalArgumentException(
 					"The textColor input cannot be null!");
 		}
-		
+
 		this.textColor = textColor;
 	}
 
@@ -357,7 +356,7 @@ public class BasicTextBox
 			final int boxPosX, final int boxPosY, final int boxWidth,
 			final int boxHeight)
 	{
-
+		// TODO
 		final int textPosX = getStartTextXTextBox(font, text, boxPosX, boxWidth);
 
 		// if()

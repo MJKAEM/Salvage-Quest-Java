@@ -133,7 +133,9 @@ public class OutputTextBox extends BasicTextBox
 
 		// Use scanner to separate each individual word.
 		//
-		try (Scanner scanner = new Scanner(text))
+		Scanner scanner = new Scanner(text);
+
+		try
 		{
 			StringBuffer printTextBuffer = new StringBuffer();
 
@@ -163,6 +165,10 @@ public class OutputTextBox extends BasicTextBox
 			// With no more words left, just add the current text to the list.
 			//
 			tempStringList.add(printTextBuffer.toString().trim());
+		}
+		finally
+		{
+			scanner.close();
 		}
 
 		return tempStringList;

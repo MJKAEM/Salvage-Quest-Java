@@ -5,11 +5,18 @@ import java.util.List;
 
 import jdivers.items.ItemEnum;
 
+import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+
 public class PlayerData
 {
 	public static final int MAX_HEALTH = 100;
 	public static final int MAX_ARMOR = 200;
-	public static final int MAX_MONEY = 999_999_999;
+	/**
+	 * 999,999,999
+	 */
+	public static final int MAX_MONEY = 999999999;
 	public static final int MAX_INVENTORY_SPACE = 2;
 
 	private boolean unlockedFishing, unlocked;
@@ -18,7 +25,7 @@ public class PlayerData
 	private String name;
 	private int curHealth, curArmor;
 	private int curMoney;
-	private ItemEnum onHand;
+	private ItemEnum onHand, itemSelected;
 	private List<ItemEnum> inventory;
 
 	public PlayerData(final String name)
@@ -36,6 +43,58 @@ public class PlayerData
 		this.curMoney = curMoney;
 		this.onHand = onHand;
 		this.inventory = inventory;
+	}
+
+	public void showInventory(final Graphics g)
+	{
+		if (Global.isSizeRecommended())
+		{
+
+		}
+		else
+		{
+			showSmallInventory(g);
+		}
+	}
+
+	private void showSmallInventory(final Graphics g)
+	{
+
+		if (getOnHand() != null)
+		{
+			Image onHandImage = getOnHand().getImage();
+
+			final float posX = Global.quarterWidth - (onHandImage.getWidth() / 2);
+			final float posY = Global.height - 25;
+
+			g.drawImage(onHandImage,
+					posX,
+					posY);
+
+			if (getOnHand().equals(getItemSelected()))
+			{
+				g.drawRect(posX, posY, 25, 25);
+			}
+		}
+
+		for (int i = 0; i < getInventory().size(); ++i)
+		{
+			ItemEnum itemEnum = getInventory().get(i);
+
+			if (itemEnum != null)
+			{
+				Image itemImage = itemEnum.getImage();
+
+				final float posX = Global.threeFourthWidth -
+						(itemImage.getWidth() / 2) +
+						(i * 25);
+				final float posY = Global.halfHeight;
+
+				g.drawImage(itemImage,
+						posX,
+						posY);
+			}
+		}
 	}
 
 	public void addMoney(final int money)
@@ -67,7 +126,7 @@ public class PlayerData
 			setCurArmor(MAX_ARMOR);
 		}
 	}
-	
+
 	public boolean putIntoHand(final int itemID)
 	{
 		ItemEnum item = ItemEnum.translateId(itemID);
@@ -75,7 +134,7 @@ public class PlayerData
 		boolean added = putIntoHand(item);
 		return added;
 	}
-	
+
 	public boolean putIntoHand(final ItemEnum itemEnum)
 	{
 		if (getOnHand() == null)
@@ -92,7 +151,7 @@ public class PlayerData
 	public boolean putIntoInventory(final int itemID)
 	{
 		ItemEnum item = ItemEnum.translateId(itemID);
-		
+
 		boolean added = putIntoInventory(item);
 		return added;
 	}
@@ -128,6 +187,37 @@ public class PlayerData
 		}
 
 		return (size + itemEnum.getSpaceUsed() >= MAX_INVENTORY_SPACE);
+	}
+
+	public boolean onHandClicked()
+	{
+		boolean clicked = false;
+
+		if (Global.isSizeRecommended())
+		{
+
+		}
+		else
+		{
+			final float posX = Global.quarterWidth - (32 / 2);
+			final float posY = Global.height - 25;
+			
+			final float halfWidth = 16;
+			final float halfHeight = 16;
+
+			if (Mouse.getX() > posX &&
+					Mouse.getX() > posX + halfWidth)
+			{
+				if (MouseFix.getMouseY() > posY &&
+						MouseFix.getMouseY() > posY + halfHeight)
+				{
+					// TODO
+				}
+			}
+
+		}
+
+		return clicked;
 	}
 
 	//
@@ -243,19 +333,24 @@ public class PlayerData
 	{
 		this.ownRPG = ownRPG;
 	}
-	
+
 	public ItemEnum getOnHand()
 	{
 		return this.onHand;
 	}
-	
+
 	public void setOnHand(final ItemEnum onHand)
 	{
 		this.onHand = onHand;
 	}
-	
+
 	public List<ItemEnum> getInventory()
 	{
 		return this.inventory;
+	}
+
+	public ItemEnum getItemSelected()
+	{
+		return this.itemSelected;
 	}
 };

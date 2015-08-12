@@ -71,24 +71,7 @@ public class ContentLoader
 	{
 		final String itemPath = imagePath + "items/";
 
-		if (Global.width < 640 || Global.height < 480)
-		{
-			try
-			{
-				itemImages[0] = new Image(itemPath + "Trash.png");
-				itemImages[1] = new Image(itemPath + "Sapphire.png");
-				itemImages[2] = new Image(itemPath + "Ruby.png");
-				itemImages[3] = new Image(itemPath + "Gold.png");
-				itemImages[4] = new Image(itemPath + "Diamond.png");
-				itemImages[5] = new Image(itemPath + "Emerald.png");
-			}
-			catch (SlickException e)
-			{
-				System.err.println(e.getMessage());
-				System.exit(-1);
-			}
-		}
-		else
+		if (Global.isSizeRecommended())
 		{
 			try
 			{
@@ -104,6 +87,24 @@ public class ContentLoader
 				System.err.println(e.getMessage());
 				System.exit(-1);
 			}
+		}
+		else
+		{
+			try
+			{
+				itemImages[0] = new Image(itemPath + "Trash.png");
+				itemImages[1] = new Image(itemPath + "Sapphire.png");
+				itemImages[2] = new Image(itemPath + "Ruby.png");
+				itemImages[3] = new Image(itemPath + "Gold.png");
+				itemImages[4] = new Image(itemPath + "Diamond.png");
+				itemImages[5] = new Image(itemPath + "Emerald.png");
+			}
+			catch (SlickException e)
+			{
+				System.err.println(e.getMessage());
+				System.exit(-1);
+			}
+
 		}
 	}
 };

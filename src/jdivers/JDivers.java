@@ -11,8 +11,8 @@ public class JDivers extends StateBasedGame
 	{
 		super(gameName);
 
-		addState(new MainMenuState(Global.menuStateValue));
-		addState(new PlayState(Global.playStateValue));
+		addState(new MainMenuState(Global.MENU_STATE_ID));
+		addState(new PlayState(Global.PLAY_STATE_ID));
 	}
 
 	@Override
@@ -20,9 +20,9 @@ public class JDivers extends StateBasedGame
 	{
 		ContentLoader.loadAllContent();
 
-		getState(Global.menuStateValue).init(gc, this);
-		getState(Global.playStateValue).init(gc, this);
-		enterState(Global.menuStateValue);
+		getState(Global.MENU_STATE_ID).init(gc, this);
+		getState(Global.PLAY_STATE_ID).init(gc, this);
+		enterState(Global.MENU_STATE_ID);
 	}
 
 	public static void main(String[] args)
